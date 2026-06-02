@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDRA Part I – Pre-Course Quiz</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2744;
+    --navy-mid: #2d3f6b;
+    --gold: #c8922a;
+    --gold-light: #f5e6c8;
+    --cream: #faf8f4;
+    --white: #ffffff;
+    --text: #1a2744;
+    --text-muted: #5a6580;
+    --border: #ddd8cc;
+    --correct: #2d7a4f;
+    --correct-bg: #eaf5ef;
+    --wrong: #b53030;
+    --wrong-bg: #fbeaea;
+    --unselected-bg: #f4f2ee;
+    --pill-bg: #eef0f7;
+    --pill-text: #2d3f6b;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  header {
+    background: var(--navy);
+    color: #fff;
+    padding: 2rem 2rem 1.5rem;
+    position: relative;
+  }
+
+  header .course-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.35rem;
+  }
+
+  header .subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .progress-bar-wrap {
+    background: var(--navy);
+    padding: 0 2rem 1rem;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+  }
+
+  .progress-track {
+    height: 3px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── QUESTION SCREEN ── */
+  .q-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .q-num {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy-mid);
+    background: var(--pill-bg);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .topic-pill {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold);
+    background: var(--gold-light);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .q-stem {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--text);
+    margin-bottom: 1.75rem;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 2rem;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: var(--white);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .option:hover:not(:disabled) {
+    border-color: var(--navy-mid);
+    background: #f7f6ff;
+  }
+
+  .option-label {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--unselected-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: background 0.15s, color 0.15s;
+    margin-top: 1px;
+  }
+
+  .option-text {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .option.selected {
+    border-color: var(--navy);
+    background: #eef0f7;
+  }
+
+  .option.selected .option-label {
+    background: var(--navy);
+    color: #fff;
+  }
+
+  .option.correct {
+    border-color: var(--correct);
+    background: var(--correct-bg);
+  }
+
+  .option.correct .option-label {
+    background: var(--correct);
+    color: #fff;
+  }
+
+  .option.wrong {
+    border-color: var(--wrong);
+    background: var(--wrong-bg);
+  }
+
+  .option.wrong .option-label {
+    background: var(--wrong);
+    color: #fff;
+  }
+
+  .option.dimmed {
+    opacity: 0.45;
+  }
+
+  .option:disabled {
+    cursor: default;
+  }
+
+  .feedback-box {
+    display: none;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .feedback-box.correct {
+    background: var(--correct-bg);
+    border: 1.5px solid #a8d8bb;
+    color: #1a4d2e;
+  }
+
+  .feedback-box.wrong {
+    background: var(--wrong-bg);
+    border: 1.5px solid #f0aaaa;
+    color: #7a1f1f;
+  }
+
+  .feedback-verdict {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .nav-row {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .btn {
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+  }
+
+  .btn-primary:hover { background: var(--navy-mid); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+  }
+
+  .btn-ghost:hover { border-color: var(--navy-mid); color: var(--navy); }
+
+  .btn:disabled { opacity: 0.35; cursor: default; }
+
+  /* ── RESULTS SCREEN ── */
+  .results-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .score-ring-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .score-ring {
+    position: relative;
+    width: 140px;
+    height: 140px;
+  }
+
+  .score-ring svg {
+    transform: rotate(-90deg);
+  }
+
+  .score-ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .score-big {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .score-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .results-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+
+  .results-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .topic-breakdown {
+    margin-bottom: 2.5rem;
+  }
+
+  .topic-breakdown h3 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .topic-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .topic-name {
+    font-size: 13px;
+    color: var(--text);
+    width: 130px;
+    flex-shrink: 0;
+  }
+
+  .topic-track {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .topic-bar {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--navy);
+  }
+
+  .topic-score {
+    font-size: 12px;
+    color: var(--text-muted);
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .review-section h3 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .review-item {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: var(--white);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .review-item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .review-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .review-icon.wrong { background: var(--wrong); color: #fff; }
+
+  .review-q-num {
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .review-stem {
+    font-size: 13.5px;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .review-chevron {
+    font-size: 16px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .review-item.open .review-chevron { transform: rotate(180deg); }
+
+  .review-body {
+    display: none;
+    padding: 0 16px 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .review-item.open .review-body { display: block; }
+
+  .review-your-answer {
+    font-size: 13px;
+    color: var(--wrong);
+    margin-bottom: 6px;
+    padding-top: 12px;
+  }
+
+  .review-correct-answer {
+    font-size: 13px;
+    color: var(--correct);
+    margin-bottom: 10px;
+  }
+
+  .review-explanation {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding: 10px 12px;
+    background: var(--cream);
+    border-radius: 6px;
+  }
+
+  .results-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+
+  .all-correct-msg {
+    text-align: center;
+    padding: 2rem;
+    color: var(--correct);
+    font-size: 15px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="course-label">Cambridge UGRA &amp; EDRA Preparation Course 2026</div>
+  <h1>EDRA Part I – Pre-Course Quiz</h1>
+  <p class="subtitle">40 applied anatomy &amp; sonoanatomy questions &nbsp;·&nbsp; Self-scoring</p>
+</header>
+
+<div class="progress-bar-wrap">
+  <div class="progress-meta">
+    <span id="prog-label">Question 1 of 40</span>
+    <span id="prog-pct">0%</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+</div>
+
+<main>
+
+  <!-- QUESTION SCREEN -->
+  <div class="screen active" id="screen-question">
+    <div class="q-header">
+      <span class="q-num" id="q-num">Q1</span>
+      <span class="topic-pill" id="q-topic">Anatomy</span>
+    </div>
+    <p class="q-stem" id="q-stem"></p>
+    <div class="options" id="options-container"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="feedback-verdict" id="feedback-verdict"></div>
+      <div id="feedback-text"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" id="btn-skip" onclick="skipQ()">Skip</button>
+      <button class="btn btn-primary" id="btn-next" onclick="nextQ()" disabled>Next</button>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="screen" id="screen-results">
+    <div class="results-header">
+      <div class="score-ring-wrap">
+        <div class="score-ring">
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="58" fill="none" stroke="#e8e4dc" stroke-width="10"/>
+            <circle cx="70" cy="70" r="58" fill="none" stroke="#1a2744" stroke-width="10"
+              stroke-linecap="round" stroke-dasharray="364.4" stroke-dashoffset="364.4" id="ring-fill"/>
+          </svg>
+          <div class="score-ring-text">
+            <div class="score-big" id="score-display">–</div>
+            <div class="score-label">out of 40</div>
+          </div>
+        </div>
+      </div>
+      <h2 class="results-title" id="results-title">Results</h2>
+      <p class="results-sub" id="results-sub"></p>
+    </div>
+
+    <div class="topic-breakdown">
+      <h3>Performance by topic</h3>
+      <div id="topic-rows"></div>
+    </div>
+
+    <div class="review-section" id="review-section">
+      <h3>Questions to review</h3>
+      <div id="review-items"></div>
+    </div>
+
+    <div class="results-actions">
+      <button class="btn btn-ghost" onclick="restartQuiz()">Restart quiz</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const QUESTIONS = [{"n": 1, "topic": "Anatomy", "stem": "A patient has weak supraspinatus and infraspinatus with intact deltoid following an interscalene block. Which nerve is injured?", "options": ["Axillary nerve", "Suprascapular nerve", "Dorsal scapular nerve", "Long thoracic nerve"], "answer": "B", "explanation": "The suprascapular nerve (C5/C6) supplies supraspinatus and infraspinatus. It passes through the suprascapular notch BENEATH the superior transverse scapular ligament. The axillary nerve supplies deltoid — intact here, ruling it out."}, {"n": 2, "topic": "Anatomy", "stem": "The musculocutaneous nerve cannot be found within the axillary sheath on ultrasound. Which muscle should you scan to locate it?", "options": ["Coracobrachialis", "Pectoralis minor", "Long head of triceps", "Biceps brachii short head"], "answer": "A", "explanation": "The musculocutaneous nerve frequently leaves the axillary sheath early and penetrates coracobrachialis. It must be blocked separately by injecting into this muscle."}, {"n": 3, "topic": "Anatomy", "stem": "A patient undergoing axillary block for hand surgery complains of tourniquet pain despite a successful block of all four terminal branches. Which nerve is responsible?", "options": ["Medial cutaneous nerve of arm", "Intercostobrachial nerve", "Medial cutaneous nerve of forearm", "Lateral cutaneous nerve of forearm"], "answer": "B", "explanation": "The intercostobrachial nerve (lateral cutaneous branch of T2) is NOT part of the brachial plexus and is not blocked by the axillary approach. It supplies the medial upper arm and must be blocked separately."}, {"n": 4, "topic": "Anatomy", "stem": "Failure to preserve which nerve during axillary lymph node dissection causes winging of the scapula?", "options": ["Thoracodorsal nerve", "Long thoracic nerve", "Medial pectoral nerve", "Lateral pectoral nerve"], "answer": "B", "explanation": "The long thoracic nerve (C5/C6/C7) runs along the lateral chest wall on the surface of serratus anterior. Injury causes scapular winging as serratus anterior can no longer hold the scapula against the chest wall."}, {"n": 5, "topic": "Anatomy", "stem": "A patient develops wrist drop after a humeral shaft fracture at the spiral groove. Which muscle is most likely partially spared, indicating the injury level?", "options": ["Brachioradialis", "Flexor carpi radialis", "Extensor carpi ulnaris", "Pronator teres"], "answer": "A", "explanation": "Triceps and brachioradialis branches arise proximal to the spiral groove and may be partially spared, distinguishing spiral groove injury from axillary-level radial nerve injury where triceps is always affected."}, {"n": 6, "topic": "Anatomy", "stem": "During an infraclavicular block, which structure lies immediately medial to the axillary artery and must be avoided?", "options": ["Subclavian vein", "Axillary vein", "Internal thoracic artery", "Parietal pleura"], "answer": "B", "explanation": "The axillary vein lies immediately medial to the axillary artery at the infraclavicular level. The three cords wrap around the artery. Colour Doppler should identify and avoid the vein."}, {"n": 7, "topic": "Anatomy", "stem": "A patient with a Martin-Gruber anastomosis has an ulnar nerve block at the wrist. Hypothenar muscles are blocked but the first dorsal interosseous retains some function. What is the explanation?", "options": ["Dual supply from the radial nerve via the posterior interosseous branch in the forearm", "Motor fibres crossed from median to ulnar nerve in the forearm proximally", "Incomplete block of the deep ulnar branch at the level of the pisiform bone", "Posterior interosseous nerve contribution via the dorsal forearm anastomosis"], "answer": "B", "explanation": "The Martin-Gruber anastomosis (present in ~15%) transfers motor fibres from the median nerve to the ulnar nerve in the forearm. These fibres bypassed the wrist-level ulnar block having already crossed proximally."}, {"n": 8, "topic": "Anatomy", "stem": "In the 'corner pocket' supraclavicular technique, which component of the brachial plexus is specifically targeted?", "options": ["Upper trunk — targets C5/C6 for shoulder coverage", "Middle trunk — targets C7 for elbow and forearm coverage", "Inferior trunk and divisions", "Posterior cord — targets radial and axillary nerve for posterior arm coverage"], "answer": "C", "explanation": "The corner pocket targets the inferior trunk/divisions in the corner between the subclavian artery medially, first rib inferiorly and divisions superolaterally — ensuring C8/T1 coverage which is most commonly missed."}, {"n": 9, "topic": "Anatomy", "stem": "A patient sustains an anterior interosseous nerve (AIN) injury. Which clinical test will be positive?", "options": ["Froment's sign", "Failure of the OK sign", "Wartenberg's sign", "Tinel's sign at the wrist"], "answer": "B", "explanation": "The AIN is a purely motor branch supplying FDP to index and middle fingers, flexor pollicis longus, and pronator quadratus. Injury causes inability to make the OK sign (failure of distal IP flexion of index finger and thumb). There is NO sensory loss."}, {"n": 10, "topic": "Anatomy", "stem": "During an interscalene block a patient suddenly loses consciousness and becomes apnoeic. Which artery, if injected, causes this immediately?", "options": ["Common carotid artery", "Vertebral artery", "Internal thoracic artery", "Subclavian artery"], "answer": "B", "explanation": "Even a tiny volume of LA injected intra-arterially into the vertebral artery reaches the brainstem immediately via retrograde flow, causing instant loss of consciousness and apnoea. Epidural spread via dural root sleeves is the other catastrophic mechanism."}, {"n": 11, "topic": "Anatomy", "stem": "During TURBT under spinal anaesthesia a patient suddenly adducts the leg. Which nerve is being stimulated by diathermy?", "options": ["Femoral nerve — stimulated through the anterior wall; blocked at the groin", "Obturator nerve — stimulated through the bladder wall; blocked pre-operatively", "Sciatic nerve — stimulated through the posterior wall; blocked at the subgluteal level", "Pudendal nerve — stimulated near the bladder neck; blocked at the ischial spine"], "answer": "B", "explanation": "The obturator nerve anterior branch innervates the adductor muscles and lies close to the posterolateral bladder wall. Electrical stimulation triggers sudden adductor contraction (obturator kick), risking bladder perforation."}, {"n": 12, "topic": "Anatomy", "stem": "The nerve to vastus medialis travels within which anatomical structure alongside the saphenous nerve?", "options": ["Femoral triangle", "Adductor canal", "Obturator canal", "Popliteal fossa"], "answer": "B", "explanation": "The nerve to vastus medialis is a branch of the femoral nerve that travels within the adductor canal alongside the saphenous nerve and femoral artery. This is clinically relevant to adductor canal blocks — the nerve to vastus medialis may be blocked along with the saphenous nerve, contributing to quadriceps weakness. Paper 1 Q10."}, {"n": 13, "topic": "Anatomy", "stem": "At the subgluteal level, the sciatic nerve lies closest to which bony landmark?", "options": ["Greater trochanter", "Ischial tuberosity", "Posterior superior iliac spine", "Sacral hiatus"], "answer": "B", "explanation": "At the subgluteal level, the sciatic nerve lies closer to the ischial tuberosity than the greater trochanter, deep to gluteus maximus. The subgluteal approach targets the nerve biased towards the tuberosity."}, {"n": 14, "topic": "Anatomy", "stem": "During sciatic nerve stimulation, isolated foot inversion is seen without plantar flexion. Which division is being stimulated?", "options": ["Tibial division", "Common peroneal division", "Both divisions equally", "Posterior cutaneous nerve of thigh"], "answer": "B", "explanation": "Isolated inversion without plantar flexion indicates predominantly common peroneal (fibular) division stimulation. Plantar flexion (tibial division) is the preferred endpoint as the tibial nerve is larger and more clinically important."}, {"n": 15, "topic": "Anatomy", "stem": "Which structure forms the roof of the adductor canal?", "options": ["Sartorius muscle lying superficially over the anteromedial thigh", "Vastoadductor membrane", "Adductor longus forming the medial wall of the canal", "Fascia lata forming the deep investing layer of the thigh"], "answer": "B", "explanation": "The vastoadductor (subsartorial) membrane forms the anterior wall/roof of the adductor canal. The femoral nerve does NOT enter the canal — only the saphenous nerve, nerve to vastus medialis, femoral artery and vein are present, preserving quadriceps function."}, {"n": 16, "topic": "Anatomy", "stem": "For a complete ankle block, which nerve is the only one NOT derived from the sciatic nerve?", "options": ["Sural nerve", "Superficial peroneal nerve", "Saphenous nerve", "Deep peroneal nerve"], "answer": "C", "explanation": "The saphenous nerve is the terminal sensory branch of the femoral nerve — the only ankle nerve not derived from the sciatic. It runs adjacent to the great saphenous vein at the medial ankle."}, {"n": 17, "topic": "Anatomy", "stem": "Which branch of the obturator nerve supplies the knee joint?", "options": ["Anterior branch", "Posterior branch", "Both branches equally", "Neither branch"], "answer": "B", "explanation": "The posterior branch of the obturator nerve (not the anterior) supplies the knee joint. It travels between adductor brevis and adductor magnus. The anterior branch supplies medial thigh skin."}, {"n": 18, "topic": "Anatomy", "stem": "Within which muscle is the lumbar plexus formed?", "options": ["Iliacus", "Psoas major", "Quadratus lumborum", "Psoas minor"], "answer": "B", "explanation": "The lumbar plexus is formed within the substance of psoas major from the anterior primary rami of L1–L4 (with T12). The kidney lies immediately anterior — excessive anterior needle advancement during lumbar plexus block risks renal puncture."}, {"n": 19, "topic": "Anatomy", "stem": "On paramedian longitudinal ultrasound of the lumbar spine, which structures produce the 'camel hump' sign?", "options": ["Spinous processes", "Laminae", "Articular processes", "Transverse processes"], "answer": "B", "explanation": "The laminae produce the camel hump sign (two adjacent hyperechoic curved surfaces with acoustic shadows). The articular processes produce the sawtooth sign. The acoustic window between the laminar humps is the interlaminar gap — the entry point for neuraxial access."}, {"n": 20, "topic": "Anatomy", "stem": "At which spinal level does Tuffier's line cross in neonates?", "options": ["L3/L4", "L4/L5", "L5/S1", "S1/S2"], "answer": "C", "explanation": "Tuffier's line crosses at approximately L4 in adults but at L5/S1 in neonates as the iliac crests are relatively lower. The neonatal conus terminates at approximately L3 (vs L1/L2 in adults) — safe spinal level in infants is L4/L5 or L5/S1."}, {"n": 21, "topic": "Anatomy", "stem": "Which surface of the dura mater is heavily innervated by the sinuvertebral nerve?", "options": ["Posterior dura", "Anterior dura", "Both equally", "Neither surface"], "answer": "B", "explanation": "The anterior dura is heavily innervated and is pain-sensitive. The posterior dura has a relatively poor nerve supply — explaining why epidural needle advancement through the posterior structures is relatively painless. The ligamentum flavum is NOT pain-sensitive."}, {"n": 22, "topic": "Anatomy", "stem": "In a midline lumbar epidural, which ligament is encountered immediately before the epidural space?", "options": ["Supraspinous ligament", "Interspinous ligament", "Ligamentum flavum", "Posterior longitudinal ligament"], "answer": "C", "explanation": "The sequence is: skin, subcutaneous fat, supraspinous ligament, interspinous ligament, then the ligamentum flavum — which produces the characteristic resistance for loss-of-resistance technique. The epidural space lies immediately deep to it."}, {"n": 23, "topic": "Anatomy", "stem": "At which level does the conus medullaris terminate in neonates?", "options": ["L1", "L2", "L3", "L4"], "answer": "C", "explanation": "In neonates the conus medullaris terminates at approximately L3 (vs L1/L2 in adults) due to faster vertebral column growth relative to the cord. Safe spinal anaesthesia in infants requires injection at L4/L5 or L5/S1."}, {"n": 24, "topic": "Anatomy", "stem": "During a thoracic paravertebral block, which ligament is pierced as the needle is walked off the transverse process inferiorly?", "options": ["Ligamentum flavum — producing a characteristic loss of resistance", "Superior costotransverse ligament", "Intertransverse membrane — lying between adjacent transverse processes", "Posterior longitudinal ligament — running along the posterior vertebral bodies"], "answer": "B", "explanation": "After contacting the transverse process and walking off inferiorly, the superior costotransverse ligament is pierced to enter the paravertebral space. The anterior boundary is the parietal pleura — excessive advancement risks pneumothorax."}, {"n": 25, "topic": "Anatomy", "stem": "Batson's plexus becomes engorged in pregnancy, increasing the risk of intravascular epidural catheter placement. What type of venous plexus is it?", "options": ["Valved internal vertebral venous plexus — valves prevent reflux during Valsalva", "Valveless internal vertebral venous plexus", "Valved external vertebral venous plexus — located outside the vertebral canal", "Valveless epidural lymphatic plexus — drains interstitial fluid from the epidural fat"], "answer": "B", "explanation": "Batson's plexus (internal vertebral venous plexus) is a valveless epidural venous network communicating with pelvic, abdominal and thoracic veins. In pregnancy, aortocaval compression causes engorgement, markedly increasing the risk of intravascular catheter placement."}, {"n": 26, "topic": "Anatomy", "stem": "During an interscalene block using nerve stimulation, a trapezius twitch is seen at 0.4 mA. Which nerve is being stimulated?", "options": ["Phrenic nerve — causing ipsilateral hemidiaphragm contraction", "Accessory nerve (CN XI)", "Dorsal scapular nerve — causing rhomboid contraction and medial scapular movement", "Long thoracic nerve — causing serratus anterior contraction and chest wall movement"], "answer": "B", "explanation": "A trapezius twitch indicates accessory nerve (CN XI) stimulation — the needle is too posterior and lateral. Redirect anteriorly and medially towards the interscalene groove to locate the C5/C6 roots."}, {"n": 27, "topic": "Anatomy", "stem": "The PENG block targets the anterior hip capsule. Which two nerves are blocked?", "options": ["Femoral nerve and lateral femoral cutaneous nerve at the level of the inguinal ligament", "Articular branches of the femoral nerve and accessory obturator nerve", "Obturator nerve posterior branch and femoral nerve between adductor brevis and magnus", "Superior gluteal nerve and femoral nerve at the level of the greater sciatic notch"], "answer": "B", "explanation": "The PENG block targets articular branches of the femoral nerve and the accessory obturator nerve supplying the anterior hip capsule. LA is deposited between the AIIS and iliopubic eminence, deep to iliopsoas. Motor branches to quadriceps are unaffected."}, {"n": 28, "topic": "Anatomy", "stem": "The quadrangular space transmits the axillary nerve and posterior circumflex humeral artery. Which muscle forms its superior boundary?", "options": ["Teres major", "Teres minor", "Long head of triceps", "Subscapularis"], "answer": "B", "explanation": "The quadrangular space: teres minor (superior), teres major (inferior), long head of triceps (medial), surgical neck of humerus (lateral). Injury to the axillary nerve here causes deltoid weakness and numbness over the regimental badge area."}, {"n": 29, "topic": "Anatomy", "stem": "A PENG block is performed but the patient has significant posterior hip pain after posterior approach THR. Which nerve supplies the posterior hip capsule that is NOT covered by PENG?", "options": ["Obturator nerve posterior branch between adductor brevis and magnus", "Nerve to quadratus femoris (branch of sciatic nerve)", "Superior gluteal nerve exiting the greater sciatic foramen above piriformis", "Posterior femoral cutaneous nerve at the subgluteal level below piriformis"], "answer": "B", "explanation": "The posterior hip capsule is supplied by the nerve to quadratus femoris (a branch of the sciatic nerve) and the inferior gluteal nerve. PENG only covers the anterior capsule — explaining persistent posterior pain after posterior approach THR."}, {"n": 30, "topic": "Anatomy", "stem": "A standard subcostal TAP block primarily covers which intercostal nerve levels?", "options": ["T10–L1", "T7–T9", "T5–T7", "T12–L2"], "answer": "B", "explanation": "A subcostal TAP approach primarily blocks T7–T9 (upper abdominal wall). For T10–T11 (umbilical) and L1 coverage a lateral TAP at the mid-axillary line is required. Paper 1 Q13."}, {"n": 31, "topic": "Anatomy", "stem": "The serratus anterior plane (SAP) block does NOT cover the medial breast. Which branches of the intercostal nerves supply this area?", "options": ["Lateral cutaneous branches", "Anterior cutaneous branches", "Posterior cutaneous branches", "Collateral branches"], "answer": "B", "explanation": "The SAP block targets lateral cutaneous branches of T2–T9. The medial breast is supplied by anterior cutaneous branches of the intercostal nerves which arise medially — these are NOT reached by the SAP approach."}, {"n": 32, "topic": "Anatomy", "stem": "Between which two muscle layers do the intercostal nerves travel in the costal groove?", "options": ["External and internal intercostal muscles in the outer rib layer", "Internal intercostal and innermost intercostal muscles", "Innermost intercostal muscle and parietal pleura in the innermost layer", "External intercostal muscle and rib periosteum on the outer rib surface"], "answer": "B", "explanation": "Intercostal nerves travel between the internal intercostal and innermost intercostal muscles in the costal groove. This is the target plane for ultrasound-guided intercostal nerve block."}, {"n": 33, "topic": "Anatomy", "stem": "The lateral femoral cutaneous nerve (LFCN) arises from which nerve roots?", "options": ["L1/L2", "L2/L3", "L3/L4", "L2/L3/L4"], "answer": "B", "explanation": "The lateral femoral cutaneous nerve arises from the posterior divisions of L2 and L3. It passes under the inguinal ligament just medial to the ASIS to enter the thigh. It is a purely sensory nerve supplying the lateral thigh — relevant for meralgia paraesthetica and as a landmark during fascia iliaca and PENG blocks."}, {"n": 34, "topic": "Anatomy", "stem": "On ultrasound of the popliteal fossa, where does the sciatic nerve lie relative to the popliteal vessels?", "options": ["Medial to the popliteal artery", "Posterior and slightly lateral to the popliteal artery and vein", "Anterior to the popliteal vein", "Deep to the popliteal artery between the two heads of gastrocnemius"], "answer": "B", "explanation": "The sciatic nerve lies posterior and slightly lateral to the popliteal artery and vein at the popliteal fossa. It appears hyperechoic with a honeycomb fascicular pattern. The popliteal vessels confirmed with colour Doppler provide the key vascular landmark."}, {"n": 35, "topic": "Anatomy", "stem": "The genitofemoral nerve arises from which roots and divides into which two branches?", "options": ["L1/L2 — ilioinguinal and iliohypogastric branches", "L1/L2 — genital and femoral branches", "L2/L3 — obturator and femoral branches", "L1 only — medial and lateral cutaneous branches"], "answer": "B", "explanation": "The genitofemoral nerve arises from L1/L2 and divides into the genital branch (enters the inguinal canal, supplies cremaster and scrotal/labial skin) and the femoral branch (passes under the inguinal ligament lateral to the femoral artery, supplies skin of the femoral triangle). Relevant to inguinal hernia repair analgesia."}, {"n": 36, "topic": "Anatomy", "stem": "Within the adductor canal at mid-thigh level, where does the saphenous nerve lie relative to the femoral artery?", "options": ["Medial to the artery", "Anterolateral to the artery", "Posterior to the artery", "Lateral to the artery outside the canal"], "answer": "B", "explanation": "The saphenous nerve lies anterolateral to the femoral artery within the adductor canal. The femoral vein lies medial and compressible. The femoral nerve itself does not enter the canal."}, {"n": 37, "topic": "Anatomy", "stem": "The ratio of neural to non-neural tissue within the sciatic nerve changes from proximal to distal. At the midgluteal level the ratio is approximately 5:1. What is it at the popliteal level?", "options": ["5:1 unchanged", "2:1", "1:1", "1:5"], "answer": "B", "explanation": "The ratio changes from approximately 5:1 (neural:non-neural) at the midgluteal/subgluteal level to 2:1 at the midfemoral and popliteal levels as more connective tissue surrounds the nerve distally. Paper 3 Q39."}, {"n": 38, "topic": "Anatomy", "stem": "Chassaignac's tubercle is the anterior tubercle of which cervical vertebra?", "options": ["C5", "C6", "C7", "C4"], "answer": "B", "explanation": "Chassaignac's tubercle is the prominent anterior tubercle of C6. The phrenic nerve runs on the anterior surface of scalenus anterior at this level. On ultrasound, C6 is identified by its bifid anterior and posterior tubercles — the golf tee sign. The vertebral artery enters the foramen transversarium at C6 (not C7)."}, {"n": 39, "topic": "Anatomy", "stem": "To block both branches of the obturator nerve at the medial thigh, between which two planes must injections be made?", "options": ["Between adductor longus and pectineus; between adductor longus and adductor brevis", "Between adductor longus/brevis; between adductor brevis/magnus", "Between pectineus and adductor brevis; between adductor magnus and gracilis", "A single injection between adductor longus and adductor magnus blocks both"], "answer": "B", "explanation": "The anterior branch lies between adductor longus and adductor brevis. The posterior branch lies between adductor brevis and adductor magnus. Two separate injections are required for a complete obturator block."}, {"n": 40, "topic": "Anatomy", "stem": "In the erector spinae plane block, local anaesthetic spreads medially to reach the paravertebral space through which anatomical passage?", "options": ["Costotransverse foramen", "Intertransverse space", "Intervertebral foramen", "Haversian canals of the transverse process"], "answer": "B", "explanation": "LA deposited between the erector spinae muscle and the transverse process tracks medially through the intertransverse space into the paravertebral space, where it reaches the dorsal and ventral rami — explaining coverage of both posterior and anterior chest wall."}];
+
+const LABELS = ['A','B','C','D'];
+let current = 0;
+let userAnswers = new Array(40).fill(null);
+let answered = false;
+
+function updateProgress() {
+  const done = userAnswers.filter(a => a !== null).length;
+  const pct = Math.round((done / 40) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `Question ${current+1} of 40`;
+  document.getElementById('prog-pct').textContent = pct + '%';
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[current];
+  answered = userAnswers[current] !== null;
+
+  document.getElementById('q-num').textContent = `Q${q.n}`;
+  document.getElementById('q-topic').textContent = q.topic;
+  document.getElementById('q-stem').textContent = q.stem;
+
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+
+  q.options.forEach((opt, i) => {
+    const lbl = LABELS[i];
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="option-label">${lbl}</span><span class="option-text">${opt}</span>`;
+    btn.onclick = () => selectAnswer(lbl);
+
+    if (answered) {
+      btn.disabled = true;
+      const userAns = userAnswers[current];
+      if (lbl === q.answer) {
+        btn.classList.add('correct');
+      } else if (lbl === userAns && userAns !== q.answer) {
+        btn.classList.add('wrong');
+      } else if (lbl !== userAns && lbl !== q.answer) {
+        btn.classList.add('dimmed');
+      }
+    } else if (userAnswers[current] === lbl) {
+      btn.classList.add('selected');
+    }
+
+    container.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback-box');
+  const verdict = document.getElementById('feedback-verdict');
+  const fbText = document.getElementById('feedback-text');
+
+  if (answered) {
+    const isCorrect = userAnswers[current] === q.answer;
+    fb.style.display = 'block';
+    fb.className = 'feedback-box ' + (isCorrect ? 'correct' : 'wrong');
+    verdict.textContent = isCorrect ? '✓ Correct' : '✗ Incorrect';
+    fbText.textContent = q.explanation;
+  } else {
+    fb.style.display = 'none';
+  }
+
+  const btnNext = document.getElementById('btn-next');
+  const btnSkip = document.getElementById('btn-skip');
+
+  if (answered) {
+    const isLast = current === 39;
+    const remaining = userAnswers.filter(a => a === null).length;
+    btnNext.textContent = isLast ? (remaining > 0 ? 'See results' : 'See results') : 'Next';
+    btnNext.disabled = false;
+    btnSkip.style.display = 'none';
+  } else {
+    btnNext.textContent = current === 39 ? 'See results' : 'Next';
+    btnNext.disabled = true;
+    btnSkip.style.display = '';
+  }
+
+  updateProgress();
+}
+
+function selectAnswer(lbl) {
+  if (answered) return;
+  const q = QUESTIONS[current];
+  userAnswers[current] = lbl;
+  answered = true;
+  renderQuestion();
+}
+
+function nextQ() {
+  if (!answered) return;
+  if (current === 39) {
+    showResults();
+    return;
+  }
+  current++;
+  renderQuestion();
+}
+
+function skipQ() {
+  if (answered) return;
+  userAnswers[current] = 'SKIPPED';
+  if (current < 39) {
+    current++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function showResults() {
+  document.getElementById('screen-question').classList.remove('active');
+  document.getElementById('screen-results').classList.add('active');
+  document.getElementById('prog-label').textContent = 'Complete';
+  document.getElementById('prog-fill').style.width = '100%';
+  document.getElementById('prog-pct').textContent = '100%';
+
+  const correct = QUESTIONS.filter((q,i) => userAnswers[i] === q.answer).length;
+  const pct = Math.round((correct/40)*100);
+
+  document.getElementById('score-display').textContent = correct;
+  const ring = document.getElementById('ring-fill');
+  const circ = 2 * Math.PI * 58;
+  ring.style.strokeDashoffset = circ - (circ * correct / 40);
+  ring.style.stroke = correct >= 32 ? '#2d7a4f' : correct >= 24 ? '#c8922a' : '#b53030';
+  ring.style.transition = 'stroke-dashoffset 1s ease';
+
+  const messages = [
+    [36, 'Excellent preparation', 'Outstanding performance — you are well prepared for the exam.'],
+    [28, 'Good foundation', 'Solid knowledge base — review the questions you missed.'],
+    [20, 'Room to grow', 'A good start — focus on the topics below before the course.'],
+    [0,  'Keep revising', 'Use the review below as your study guide before the course.'],
+  ];
+  const [,title, sub] = messages.find(([t]) => correct >= t);
+  document.getElementById('results-title').textContent = title;
+  document.getElementById('results-sub').textContent = `${correct} / 40 correct (${pct}%) — ${40 - correct} to review`;
+
+  const topicMap = {};
+  QUESTIONS.forEach((q, i) => {
+    if (!topicMap[q.topic]) topicMap[q.topic] = {correct:0, total:0};
+    topicMap[q.topic].total++;
+    if (userAnswers[i] === q.answer) topicMap[q.topic].correct++;
+  });
+
+  const topicRows = document.getElementById('topic-rows');
+  topicRows.innerHTML = '';
+  Object.entries(topicMap).forEach(([topic, {correct:c, total:t}]) => {
+    const p = Math.round((c/t)*100);
+    const row = document.createElement('div');
+    row.className = 'topic-row';
+    row.innerHTML = `
+      <span class="topic-name">${topic}</span>
+      <div class="topic-track"><div class="topic-bar" style="width:${p}%;background:${p>=80?'#2d7a4f':p>=50?'#c8922a':'#b53030'}"></div></div>
+      <span class="topic-score">${c}/${t}</span>`;
+    topicRows.appendChild(row);
+  });
+
+  const wrong = QUESTIONS.filter((q,i) => userAnswers[i] !== q.answer);
+  const reviewItems = document.getElementById('review-items');
+
+  if (wrong.length === 0) {
+    reviewItems.innerHTML = '<div class="all-correct-msg">🎉 Perfect score — no questions to review!</div>';
+    return;
+  }
+
+  reviewItems.innerHTML = '';
+  wrong.forEach((q, idx) => {
+    const i = QUESTIONS.indexOf(q);
+    const userAns = userAnswers[i];
+    const userOptText = userAns === 'SKIPPED' ? 'Skipped' : `${userAns}. ${q.options[LABELS.indexOf(userAns)]}`;
+    const correctOptText = `${q.answer}. ${q.options[LABELS.indexOf(q.answer)]}`;
+
+    const item = document.createElement('div');
+    item.className = 'review-item';
+    item.innerHTML = `
+      <div class="review-item-header" onclick="toggleReview(this.parentElement)">
+        <div class="review-icon wrong">✗</div>
+        <span class="review-q-num">Q${q.n}</span>
+        <span class="review-stem">${q.stem.length > 80 ? q.stem.substring(0,80)+'…' : q.stem}</span>
+        <span class="review-chevron">▾</span>
+      </div>
+      <div class="review-body">
+        <div class="review-your-answer">Your answer: ${userOptText}</div>
+        <div class="review-correct-answer">Correct answer: ${correctOptText}</div>
+        <div class="review-explanation">${q.explanation}</div>
+      </div>`;
+    reviewItems.appendChild(item);
+  });
+}
+
+function toggleReview(el) {
+  el.classList.toggle('open');
+}
+
+function restartQuiz() {
+  current = 0;
+  userAnswers = new Array(40).fill(null);
+  answered = false;
+  document.getElementById('screen-results').classList.remove('active');
+  document.getElementById('screen-question').classList.add('active');
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
