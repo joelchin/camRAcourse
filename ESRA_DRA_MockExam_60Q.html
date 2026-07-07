@@ -7,173 +7,198 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --orange:#e8490f;
-  --orange-dark:#c73d0c;
-  --orange-light:#fdf0ec;
-  --blue:#2a5db0;
-  --text:#2c2c2c;
-  --text-muted:#666;
-  --border:#e0e0e0;
-  --bg:#f5f5f5;
-  --white:#ffffff;
-  --correct:#2a7a4f;
-  --correct-bg:#eaf5ef;
-  --wrong:#c0392b;
-  --wrong-bg:#fbeaea;
-  --flag:#d4850a;
-  --flag-bg:#fef3e2;
-  --answered:#2a5db0;
-  --navy:#1a3a6b;
+  --orange:#e8490f;--orange-dark:#c73d0c;--orange-light:#fdf0ec;
+  --blue:#2a5db0;--text:#2c2c2c;--text-muted:#666;
+  --border:#e0e0e0;--bg:#f5f5f5;--white:#ffffff;
+  --correct:#2a7a4f;--correct-bg:#eaf5ef;
+  --wrong:#c0392b;--wrong-bg:#fbeaea;
+  --flag:#d4850a;--flag-bg:#fef3e2;
 }
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
 
 /* START SCREEN */
-.start-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:500}
-.start-card{background:var(--white);border-radius:4px;padding:48px 52px;max-width:560px;width:90%;text-align:center;box-shadow:0 2px 16px rgba(0,0,0,0.12);border-top:4px solid var(--orange)}
-.start-logo{font-size:13px;font-weight:700;letter-spacing:0.05em;color:var(--orange);margin-bottom:20px;text-transform:uppercase}
-.start-card h1{font-size:26px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.25}
-.start-sub{font-size:14px;color:var(--text-muted);margin-bottom:28px;line-height:1.6}
-.start-info{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:28px}
-.start-info-item{background:var(--bg);border-radius:4px;padding:14px;text-align:center;border:1px solid var(--border)}
-.si-val{font-size:20px;font-weight:700;color:var(--text);display:block}
-.si-label{font-size:12px;color:var(--text-muted);margin-top:2px}
+.start-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px}
+.start-card{background:var(--white);border-radius:4px;padding:32px 28px;max-width:520px;width:100%;text-align:center;box-shadow:0 2px 16px rgba(0,0,0,0.12);border-top:4px solid var(--orange)}
+.start-logo{font-size:13px;font-weight:700;letter-spacing:0.05em;color:var(--orange);margin-bottom:16px;text-transform:uppercase}
+.start-card h1{font-size:22px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.25}
+.start-sub{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6}
+.start-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.start-info-item{background:var(--bg);border-radius:4px;padding:10px;text-align:center;border:1px solid var(--border)}
+.si-val{font-size:18px;font-weight:700;color:var(--text);display:block}
+.si-label{font-size:11px;color:var(--text-muted);margin-top:2px}
 .btn-begin{background:var(--orange);color:#fff;border:none;padding:13px 40px;border-radius:4px;font-size:15px;font-weight:600;cursor:pointer;width:100%;font-family:inherit;transition:background 0.15s}
 .btn-begin:hover{background:var(--orange-dark)}
-.start-note{font-size:12px;color:var(--text-muted);margin-top:14px;line-height:1.5}
+.start-note{font-size:11px;color:var(--text-muted);margin-top:12px;line-height:1.5}
 
 /* TOP BAR */
-.topbar{background:var(--white);color:var(--text);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:54px;position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:3px solid var(--orange);box-shadow:0 1px 4px rgba(0,0,0,0.1)}
-.topbar-left{display:flex;align-items:center;gap:14px}
-.topbar-logo{font-size:15px;font-weight:700;color:var(--orange);letter-spacing:0.02em}
-.topbar-divider{width:1px;height:22px;background:var(--border)}
-.topbar-title{font-size:13px;color:var(--text-muted)}
-.timer{font-family:'Courier New',monospace;font-size:18px;font-weight:700;color:var(--text);background:var(--bg);padding:6px 14px;border-radius:4px;border:1px solid var(--border);letter-spacing:0.05em}
+.topbar{background:var(--white);display:none;align-items:center;justify-content:space-between;padding:0 16px;height:52px;position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:3px solid var(--orange);box-shadow:0 1px 4px rgba(0,0,0,0.1)}
+.topbar-left{display:flex;align-items:center;gap:10px;min-width:0}
+.topbar-logo{font-size:13px;font-weight:700;color:var(--orange);white-space:nowrap}
+.topbar-divider{width:1px;height:20px;background:var(--border);flex-shrink:0}
+.topbar-title{font-size:12px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.timer{font-family:'Courier New',monospace;font-size:16px;font-weight:700;color:var(--text);background:var(--bg);padding:5px 10px;border-radius:4px;border:1px solid var(--border);letter-spacing:0.05em;white-space:nowrap}
 .timer.warning{color:var(--flag);border-color:var(--flag);animation:pulse 1s infinite}
 .timer.critical{color:var(--wrong);border-color:var(--wrong);animation:pulse 0.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
-.btn-end{background:var(--orange);color:#fff;border:none;padding:7px 18px;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.15s}
-.btn-end:hover{background:var(--orange-dark)}
+.btn-end{background:var(--orange);color:#fff;border:none;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
 
-/* SIDEBAR */
-.sidebar{width:220px;background:var(--white);position:fixed;top:54px;bottom:0;left:0;overflow-y:auto;padding:14px 12px;border-right:1px solid var(--border)}
-.sidebar-header{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:10px;padding:0 2px}
+/* SIDEBAR — desktop only */
+.sidebar{width:220px;background:var(--white);position:fixed;top:52px;bottom:0;left:0;overflow-y:auto;padding:12px 10px;border-right:1px solid var(--border);display:none}
+.sidebar-header{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:8px}
 .q-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
-.q-btn{width:100%;aspect-ratio:1;border:1px solid var(--border);border-radius:3px;font-size:11px;font-weight:600;cursor:pointer;background:var(--white);color:var(--text-muted);transition:all 0.1s}
-.q-btn:hover{background:var(--bg);border-color:#bbb}
+.q-btn{width:100%;aspect-ratio:1;border:1px solid var(--border);border-radius:3px;font-size:10px;font-weight:600;cursor:pointer;background:var(--white);color:var(--text-muted);transition:all 0.1s}
+.q-btn:hover{background:var(--bg)}
 .q-btn.current{background:var(--orange);color:#fff;border-color:var(--orange)}
 .q-btn.answered{background:var(--blue);color:#fff;border-color:var(--blue)}
 .q-btn.flagged{background:var(--flag);color:#fff;border-color:var(--flag)}
-.sidebar-legend{margin-top:14px;display:flex;flex-direction:column;gap:5px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text-muted)}
-.legend-dot{width:12px;height:12px;border-radius:2px;flex-shrink:0}
-.sidebar-stats{margin-top:12px;font-size:12px;color:var(--text-muted)}
-.sidebar-stats div{display:flex;justify-content:space-between;padding:3px 0}
+.sidebar-legend{margin-top:12px;display:flex;flex-direction:column;gap:4px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text-muted)}
+.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.sidebar-stats{margin-top:10px;font-size:11px;color:var(--text-muted)}
+.sidebar-stats div{display:flex;justify-content:space-between;padding:2px 0}
 .sidebar-stats .val{font-weight:700;color:var(--text)}
 
-/* LAYOUT */
-.layout{display:none;margin-top:54px;min-height:calc(100vh - 54px)}
-.main{margin-left:220px;flex:1;padding:22px 28px;max-width:860px}
+/* MOBILE NAV BAR — mobile only */
+.mobile-nav{display:none;background:var(--white);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;right:0;z-index:99;padding:10px 16px;gap:10px;align-items:center}
+.mobile-qnum{font-size:13px;font-weight:700;color:var(--orange);white-space:nowrap}
+.mobile-progress{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.mobile-progress-fill{height:100%;background:var(--orange);border-radius:2px;transition:width 0.3s}
+.mobile-answered{font-size:11px;color:var(--text-muted);white-space:nowrap}
 
-/* PROGRESS */
-.progress-wrap{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:12px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
-.progress-track{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
-.progress-fill{height:100%;background:var(--orange);border-radius:2px;transition:width 0.3s}
-.progress-label{font-size:13px;color:var(--text-muted);white-space:nowrap}
-.progress-pct{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;width:34px;text-align:right}
+/* LAYOUT */
+.layout{display:none;margin-top:52px;min-height:calc(100vh - 52px)}
+.main{padding:16px;max-width:800px}
 
 /* QUESTION */
-.q-panel{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:26px;margin-bottom:16px}
-.q-meta{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.q-panel{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:20px;margin-bottom:12px}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);flex-wrap:wrap}
 .q-number{font-size:13px;font-weight:700;color:var(--orange)}
-.q-topic{font-size:12px;color:var(--text-muted);background:var(--bg);padding:3px 10px;border-radius:3px;border:1px solid var(--border)}
-.q-stem{font-size:15.5px;line-height:1.7;color:var(--text);margin-bottom:22px;font-weight:400}
-.q-image{margin-bottom:18px;text-align:center}
-.q-image img{max-width:100%;max-height:280px;border-radius:4px;border:1px solid var(--border)}
-.options{display:flex;flex-direction:column;gap:6px}
-.option{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:3px;background:var(--white);cursor:pointer;transition:all 0.1s;text-align:left;width:100%;font-family:inherit}
+.q-topic{font-size:11px;color:var(--text-muted);background:var(--bg);padding:3px 8px;border-radius:3px;border:1px solid var(--border)}
+.q-stem{font-size:15px;line-height:1.65;color:var(--text);margin-bottom:18px;font-weight:400}
+.q-image{margin-bottom:14px;text-align:center}
+.q-image img{max-width:100%;max-height:260px;border-radius:4px;border:1px solid var(--border)}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border:1.5px solid var(--border);border-radius:6px;background:var(--white);cursor:pointer;transition:all 0.1s;text-align:left;width:100%;font-family:inherit;min-height:48px}
 .option:hover{background:var(--bg);border-color:#aaa}
+.option:active{background:var(--orange-light)}
 .option.selected{border-color:var(--orange);background:var(--orange-light)}
 .option-badge{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text-muted);margin-top:1px;transition:all 0.1s}
 .option.selected .option-badge{background:var(--orange);border-color:var(--orange);color:#fff}
-.option-text{font-size:14.5px;line-height:1.55;color:var(--text)}
+.option-text{font-size:14px;line-height:1.5;color:var(--text)}
 
-/* NAV */
-.nav-row{display:flex;justify-content:space-between;align-items:center;padding-top:4px}
-.btn{padding:8px 20px;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all 0.12s}
+/* NAV ROW */
+.nav-row{display:flex;justify-content:space-between;align-items:center;padding-top:4px;gap:8px}
+.btn{padding:10px 18px;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all 0.12s;min-height:44px}
 .btn-ghost{background:var(--white);color:var(--text-muted);border:1px solid var(--border)}
 .btn-ghost:hover{background:var(--bg);color:var(--text)}
 .btn-ghost:disabled{opacity:0.4;cursor:default}
 .btn-primary{background:var(--orange);color:#fff;border:1px solid var(--orange)}
 .btn-primary:hover{background:var(--orange-dark)}
-.btn-flag{background:var(--white);color:var(--flag);border:1px solid var(--flag)}
+.btn-flag{background:var(--white);color:var(--flag);border:1px solid var(--flag);padding:10px 12px}
 .btn-flag:hover{background:var(--flag-bg)}
 .btn-flag.active{background:var(--flag);color:#fff}
 .nav-left{display:flex;gap:8px}
 .nav-right{display:flex;gap:8px}
 
+/* PROGRESS BAR */
+.progress-wrap{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.progress-track{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--orange);border-radius:2px;transition:width 0.3s}
+.progress-label{font-size:12px;color:var(--text-muted);white-space:nowrap}
+.progress-pct{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;width:32px;text-align:right}
+
 /* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;align-items:center;justify-content:center}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.open{display:flex}
-.modal{background:var(--white);border-radius:4px;max-width:500px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.18);border-top:3px solid var(--orange)}
-.modal-header{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.modal-header h3{font-size:16px;font-weight:700;color:var(--text)}
+.modal{background:var(--white);border-radius:4px;max-width:480px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.18);border-top:3px solid var(--orange)}
+.modal-header{padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.modal-header h3{font-size:15px;font-weight:700;color:var(--text)}
 .modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-muted)}
-.modal-body{padding:18px 22px}
+.modal-body{padding:16px 20px}
 .modal-stat{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
 .modal-stat:last-child{border-bottom:none}
 .modal-stat-label{color:var(--text-muted)}
 .modal-stat-value{font-weight:700;color:var(--text)}
 .modal-stat-value.warn{color:var(--flag)}
-.modal-note{margin-top:14px;font-size:13px;color:var(--text-muted);line-height:1.6;padding:10px;background:var(--bg);border-radius:3px}
-.modal-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+.modal-note{margin-top:12px;font-size:12px;color:var(--text-muted);line-height:1.6;padding:10px;background:var(--bg);border-radius:3px}
+.modal-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
 .btn-orange{background:var(--orange);color:#fff;border:1px solid var(--orange)}
 .btn-orange:hover{background:var(--orange-dark)}
 
 /* RESULTS */
 .results-screen{display:none;min-height:100vh;background:var(--bg)}
-.results-topbar{background:var(--white);border-bottom:3px solid var(--orange);height:54px;display:flex;align-items:center;padding:0 28px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
-.results-topbar-logo{font-size:14px;font-weight:700;color:var(--orange);margin-right:14px}
-.results-topbar-title{font-size:13px;color:var(--text-muted)}
-.results-body{padding:28px 28px 48px;max-width:900px;margin:0 auto}
-.results-hero{background:var(--white);border:1px solid var(--border);border-radius:4px;border-top:3px solid var(--orange);padding:28px 32px;margin-bottom:16px}
-.results-hero-inner{display:flex;align-items:center;gap:28px}
-.score-ring{position:relative;width:110px;height:110px;flex-shrink:0}
+.results-topbar{background:var(--white);border-bottom:3px solid var(--orange);height:52px;display:flex;align-items:center;padding:0 16px;position:sticky;top:0;z-index:100}
+.results-topbar-logo{font-size:13px;font-weight:700;color:var(--orange);margin-right:10px;white-space:nowrap}
+.results-topbar-title{font-size:12px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.results-body{padding:20px 16px 48px;max-width:860px;margin:0 auto}
+.results-hero{background:var(--white);border:1px solid var(--border);border-radius:4px;border-top:3px solid var(--orange);padding:20px;margin-bottom:14px}
+.results-hero-inner{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.score-ring{position:relative;width:100px;height:100px;flex-shrink:0}
 .score-ring svg{transform:rotate(-90deg)}
 .score-ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.score-big{font-size:2rem;font-weight:700;color:var(--text);line-height:1}
+.score-big{font-size:1.8rem;font-weight:700;color:var(--text);line-height:1}
 .score-denom{font-size:11px;color:var(--text-muted);margin-top:2px}
-.score-pct{font-size:13px;font-weight:700;margin-top:4px}
-.results-text h2{font-size:20px;font-weight:700;color:var(--text);margin-bottom:6px}
-.results-text p{font-size:14px;color:var(--text-muted);line-height:1.6}
-.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
-.results-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:18px 20px}
-.results-card h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.topic-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.topic-name{font-size:11.5px;color:var(--text);width:165px;flex-shrink:0;line-height:1.3}
+.score-pct{font-size:13px;font-weight:700;margin-top:3px}
+.results-text h2{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px}
+.results-text p{font-size:13px;color:var(--text-muted);line-height:1.6}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.results-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:16px}
+.results-card h3{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.topic-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.topic-name{font-size:11px;color:var(--text);width:150px;flex-shrink:0;line-height:1.3}
 .topic-track{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
 .topic-bar{height:100%;border-radius:2px}
-.topic-score{font-size:11px;font-weight:700;color:var(--text);width:30px;text-align:right;flex-shrink:0}
-.stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+.topic-score{font-size:11px;font-weight:600;color:var(--text);width:28px;text-align:right;flex-shrink:0}
+.stat-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
 .stat-row:last-child{border-bottom:none}
 .stat-label{color:var(--text-muted)}
 .stat-value{font-weight:700;color:var(--text)}
-.review-section{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:18px 20px;margin-bottom:16px}
-.review-section h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.review-section{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:14px}
+.review-section h3{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .review-item{border:1px solid var(--border);border-radius:3px;margin-bottom:6px;overflow:hidden}
-.review-item-header{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;cursor:pointer;background:var(--white)}
+.review-item-header{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;cursor:pointer;background:var(--white)}
 .review-item-header:hover{background:var(--bg)}
 .review-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
 .review-icon.wrong{background:var(--wrong);color:#fff}
-.review-qn{font-size:12px;color:var(--text-muted);flex-shrink:0;padding-top:2px;min-width:30px;font-weight:600}
-.review-stem-short{font-size:13px;color:var(--text);flex:1;line-height:1.4}
+.review-qn{font-size:11px;color:var(--text-muted);flex-shrink:0;padding-top:2px;min-width:28px;font-weight:600}
+.review-stem-short{font-size:12px;color:var(--text);flex:1;line-height:1.4}
 .review-chevron{font-size:12px;color:var(--text-muted);flex-shrink:0;transition:transform 0.2s;padding-top:3px}
 .review-item.open .review-chevron{transform:rotate(180deg)}
-.review-body{display:none;padding:0 14px 14px;border-top:1px solid var(--border);background:#fafafa}
+.review-body{display:none;padding:0 12px 12px;border-top:1px solid var(--border);background:#fafafa}
 .review-item.open .review-body{display:block}
-.review-your{font-size:13px;color:var(--wrong);padding-top:12px;margin-bottom:4px;font-weight:500}
-.review-correct{font-size:13px;color:var(--correct);margin-bottom:10px;font-weight:500}
-.review-expl{font-size:13px;color:var(--text-muted);line-height:1.6;background:var(--white);padding:10px 12px;border-radius:3px;border:1px solid var(--border)}
-.results-actions{display:flex;justify-content:center;gap:12px;margin-top:8px}
+.review-your{font-size:12px;color:var(--wrong);padding-top:10px;margin-bottom:3px;font-weight:500}
+.review-correct{font-size:12px;color:var(--correct);margin-bottom:8px;font-weight:500}
+.review-expl{font-size:12px;color:var(--text-muted);line-height:1.6;background:var(--white);padding:8px 10px;border-radius:3px;border:1px solid var(--border)}
+.results-actions{display:flex;justify-content:center;gap:12px;margin-top:8px;padding-bottom:20px}
+
+/* ── RESPONSIVE ── */
+@media (min-width:768px) {
+  .main { margin-left:220px; padding:20px 24px; }
+  .sidebar { display:block; }
+  .mobile-nav { display:none !important; }
+  .topbar-title { display:block; }
+  .q-stem { font-size:15.5px; }
+  .option-text { font-size:14.5px; }
+  .results-grid { grid-template-columns:1fr 1fr; }
+}
+
+@media (max-width:767px) {
+  .main { margin-left:0; padding:12px 12px 80px; }
+  .sidebar { display:none !important; }
+  .mobile-nav { display:flex; }
+  .topbar-title { display:none; }
+  .q-stem { font-size:15px; }
+  .option { padding:12px; min-height:52px; }
+  .option-text { font-size:14px; }
+  .results-grid { grid-template-columns:1fr; }
+  .results-hero-inner { flex-direction:column; align-items:flex-start; gap:12px; }
+  .topic-name { width:120px; }
+  .nav-row { flex-wrap:wrap; gap:6px; }
+  .btn { padding:10px 14px; font-size:12px; }
+  .progress-wrap { display:none; }
+  .start-card { padding:24px 20px; }
+  .start-card h1 { font-size:20px; }
+}
 </style>
 </head>
 <body>
@@ -181,13 +206,14 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
 <!-- START SCREEN -->
 <div class="start-screen" id="start-screen">
   <div class="start-card">
+    <div class="start-logo">Cambridge UGRA &amp; ESRA-DRA Preparation Course 2026</div>
     <h1>ESRA-DRA Part I<br>Mock Exam</h1>
-    <p class="start-sub">Cambridge UGRA &amp; ESRA-DRA Preparation Course 2026<br>Single best answer — select the ONE best answer from options A–D.</p>
+    <p class="start-sub">60 single best answer questions &nbsp;·&nbsp; Select the ONE best answer from options A–D for each question.</p>
     <div class="start-info">
       <div class="start-info-item"><span class="si-val">60</span><span class="si-label">Questions</span></div>
       <div class="start-info-item"><span class="si-val">60 min</span><span class="si-label">Time allowed</span></div>
       <div class="start-info-item"><span class="si-val">A–D</span><span class="si-label">Options</span></div>
-
+      <div class="start-info-item"><span class="si-val">SBA</span><span class="si-label">Format</span></div>
     </div>
     <button class="btn-begin" onclick="beginExam()">Begin Exam</button>
     <p class="start-note">The timer starts when you click Begin Exam.<br>You may change your answers at any time before submitting.</p>
@@ -195,7 +221,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
 </div>
 
 <!-- TOP BAR -->
-<div class="topbar" id="topbar" style="display:none">
+<div class="topbar" id="topbar">
   <div class="topbar-left">
     <span class="topbar-logo">ESRA-DRA Part I</span>
     <div class="topbar-divider"></div>
@@ -205,8 +231,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
   <button class="btn-end" onclick="openSubmitModal()">End Exam</button>
 </div>
 
-<!-- SIDEBAR -->
-<div class="sidebar" id="sidebar" style="display:none">
+<!-- SIDEBAR (desktop) -->
+<div class="sidebar" id="sidebar">
   <div class="sidebar-header">Question Navigator</div>
   <div class="q-grid" id="q-grid"></div>
   <div class="sidebar-legend">
@@ -227,7 +253,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
 <div class="main">
   <div class="progress-wrap">
     <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
-    <div class="progress-label" id="prog-label">0 of 120 answered</div>
+    <div class="progress-label" id="prog-label">0 of 60 answered</div>
     <div class="progress-pct" id="prog-pct">0%</div>
   </div>
   <div class="q-panel">
@@ -243,14 +269,21 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
   </div>
   <div class="nav-row">
     <div class="nav-left">
-      <button class="btn btn-ghost" onclick="prevQ()" id="btn-prev">&#8592; Previous</button>
-      <button class="btn btn-flag" id="btn-flag" onclick="toggleFlag()">&#9873; Flag for review</button>
+      <button class="btn btn-ghost" onclick="prevQ()" id="btn-prev">&#8592; Prev</button>
+      <button class="btn btn-flag" id="btn-flag" onclick="toggleFlag()">&#9873; Flag</button>
     </div>
     <div class="nav-right">
       <button class="btn btn-primary" onclick="nextQ()" id="btn-next">Next &#8594;</button>
     </div>
   </div>
 </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<div class="mobile-nav" id="mobile-nav" style="display:none">
+  <span class="mobile-qnum" id="mob-qnum">Q1/120</span>
+  <div class="mobile-progress"><div class="mobile-progress-fill" id="mob-fill"></div></div>
+  <span class="mobile-answered" id="mob-answered">0 answered</span>
 </div>
 
 <!-- SUBMIT MODAL -->
@@ -265,7 +298,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
       <div class="modal-stat"><span class="modal-stat-label">Unanswered</span><span class="modal-stat-value warn" id="modal-unanswered">120</span></div>
       <div class="modal-stat"><span class="modal-stat-label">Flagged for review</span><span class="modal-stat-value" id="modal-flagged">0</span></div>
       <div class="modal-stat"><span class="modal-stat-label">Time remaining</span><span class="modal-stat-value" id="modal-time">1:00:00</span></div>
-      <p class="modal-note">Once submitted you cannot return to your answers. Your results and a detailed review of incorrect answers will be displayed.</p>
+      <p class="modal-note">Once submitted you cannot return to your answers. Your results and a review of incorrect answers will be displayed.</p>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeSubmitModal()">Continue exam</button>
@@ -284,10 +317,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
     <div class="results-hero">
       <div class="results-hero-inner">
         <div class="score-ring">
-          <svg width="110" height="110" viewBox="0 0 110 110">
-            <circle cx="55" cy="55" r="46" fill="none" stroke="#e8e8e8" stroke-width="9"/>
-            <circle cx="55" cy="55" r="46" fill="none" stroke="#e8490f" stroke-width="9"
-              stroke-linecap="round" stroke-dasharray="289.0" stroke-dashoffset="289.0"
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#e8e8e8" stroke-width="9"/>
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#e8490f" stroke-width="9"
+              stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9"
               id="ring-circle" style="transition:stroke-dashoffset 1.2s ease"/>
           </svg>
           <div class="score-ring-text">
@@ -323,7 +356,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
 </div>
 
 <script>
-
 const IMG_Q4 = 'data:image/jpeg;base64,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';
 const QUESTIONS = [{"n": 1, "orig_n": 1, "topic": "Anatomy", "stem": "Which local anaesthetic is not used in skin infiltration?", "options": ["Tetracaine", "Lidocaine", "Levobupivacaine", "Bupivacaine"], "answer": "A", "explanation": "Tetracaine (amethocaine) is too systemically toxic for subcutaneous infiltration. It is used topically (eye drops, Ametop gel). Lidocaine, levobupivacaine and bupivacaine are all used for infiltration."}, {"n": 2, "orig_n": 2, "topic": "Anatomy", "stem": "On ultrasound of the anterior ankle with Doppler, which structure lies immediately lateral to the anterior tibial artery?", "options": ["Tibialis anterior tendon", "Extensor hallucis longus tendon", "Deep peroneal nerve", "Extensor digitorum longus tendon"], "answer": "C", "explanation": "The deep peroneal nerve lies immediately lateral to the anterior tibial artery at the anterior ankle. This neurovascular relationship is the key landmark for blocking the deep peroneal nerve during ankle block."}, {"n": 3, "orig_n": 3, "topic": "Anatomy", "stem": "On ultrasound scanning of the sciatic nerve, which description correctly describes its appearance and shape at different levels?", "options": ["Round and hypoechoic throughout its course", "Oval and hyperechoic at mid-femur; triangular and hyperechoic at sacral level; flattened at popliteal level", "Flat at the sacral level becoming oval at the popliteal fossa", "Hyperechoic at mid-femur only; hypoechoic above and below"], "answer": "B", "explanation": "The sciatic nerve is triangular and hyperechoic at the sacral/gluteal level, oval and hyperechoic (honeycomb pattern) at mid-femur, and becomes progressively flatter as it approaches and divides at the popliteal fossa."}, {"n": 4, "orig_n": 4, "topic": "Anatomy", "stem": "In the following ultrasound image of a femoral nerve block with Doppler, what is the name of the blood vessel that crosses over the femoral nerve from medial to lateral?", "options": ["Superficial circumflex iliac artery", "Lateral femoral circumflex artery", "Superficial epigastric artery", "Descending branch of lateral femoral circumflex artery"], "answer": "A", "explanation": "The superficial circumflex iliac artery crosses over the femoral nerve from medial to lateral at the level of the inguinal ligament. Note: in the April 2026 recalled exam, DCIA was NOT listed as an option."}, {"n": 5, "orig_n": 5, "topic": "Anatomy", "stem": "Hip joint has complex innervation. Which one of the following correctly describes its capsule innervation?", "options": ["The posterolateral capsule is innervated by the femoral nerve", "The anteromedial capsule is innervated by the obturator nerve", "The anterolateral capsule is innervated by the sciatic nerve", "The entire anterior capsule is supplied by the lateral femoral cutaneous nerve"], "answer": "B", "explanation": "The anteromedial hip capsule is innervated by the obturator nerve. The anterolateral capsule is supplied by the femoral nerve. The posterior capsule is supplied by the sciatic nerve and superior gluteal nerve."}, {"n": 6, "orig_n": 6, "topic": "Anatomy", "stem": "A patient developed a Trendelenburg gait following total hip arthroplasty. Injury to which nerve is responsible?", "options": ["Inferior gluteal nerve", "Superior gluteal nerve", "Sciatic nerve", "Femoral nerve"], "answer": "B", "explanation": "The superior gluteal nerve supplies gluteus medius and minimus. Their paralysis causes the contralateral pelvis to drop during single-leg stance — the Trendelenburg sign."}, {"n": 7, "orig_n": 7, "topic": "Anatomy", "stem": "In the medial thigh, which muscle lies superficial to the anterior branch of the obturator nerve?", "options": ["Adductor longus", "Adductor magnus", "Adductor brevis", "Pectineus"], "answer": "A", "explanation": "The anterior branch of the obturator nerve lies deep to adductor longus and superficial to adductor brevis. Adductor longus is the muscle lying over (superficial to) the anterior branch."}, {"n": 8, "orig_n": 8, "topic": "Anatomy", "stem": "In an ultrasound-guided axillary brachial plexus block, which nerve consistently lies lateral to the axillary artery within the axillary sheath?", "options": ["Ulnar nerve", "Radial nerve", "Median nerve", "Musculocutaneous nerve"], "answer": "C", "explanation": "The median nerve consistently lies lateral to the axillary artery within the axillary sheath. The ulnar nerve lies medial, the radial nerve lies posterior, and the musculocutaneous nerve has typically already left the sheath into coracobrachialis by this level and is inconsistently found within the sheath. Recalled from April 2026 EDRA exam Q66."}, {"n": 9, "orig_n": 9, "topic": "Anatomy", "stem": "On ultrasound of the lumbar spine at the level of the thecal sac, which of the following correctly describes the sonoanatomical appearance of the dural sac?", "options": ["A hyperechoic oval structure with posterior acoustic enhancement", "A hypoechoic oval or circular structure lying between two bright hyperechoic lines representing the anterior and posterior dura", "An isoechoic structure indistinguishable from the surrounding epidural fat", "A mixed echogenicity structure that moves with respiration"], "answer": "B", "explanation": "The dural sac (thecal sac) appears as a hypoechoic (dark) oval or circular structure on transverse ultrasound scan of the lumbar spine. It is bounded by the bright hyperechoic anterior and posterior dural walls. The cauda equina nerve roots may be visible as echogenic structures within the hypoechoic CSF. Recognising this appearance is essential for confirming correct needle tip position during ultrasound-guided neuraxial procedures. Recalled from April 2026 EDRA exam Q61."}, {"n": 10, "orig_n": 10, "topic": "Anatomy", "stem": "At which vertebral level does the vertebral artery typically enter the foramen transversarium?", "options": ["C4", "C5", "C6", "C7"], "answer": "C", "explanation": "The vertebral artery typically enters at C6 and ascends through C6–C1. The C7 foramen transversarium usually transmits only accessory vertebral veins. Chassaignac's tubercle is the anterior tubercle of C6."}, {"n": 11, "orig_n": 11, "topic": "Anatomy", "stem": "What are the roots for the triceps reflex?", "options": ["C5, C6", "C6, C7", "C7, C8", "C8, T1"], "answer": "C", "explanation": "The triceps reflex is mediated primarily through C7 with a contribution from C8. Testing the triceps reflex assesses the integrity of the C7 nerve root."}, {"n": 12, "orig_n": 12, "topic": "Anatomy", "stem": "Which layer of the peripheral nerve provides the greatest mechanical protection to the nerve fascicles?", "options": ["Endoneurium", "Perineurium", "Epineurium", "Myelin sheath"], "answer": "B", "explanation": "The perineurium is a tough multilayered sleeve surrounding each fascicle, providing the greatest mechanical protection and forming a diffusion barrier."}, {"n": 13, "orig_n": 13, "topic": "Anatomy", "stem": "Which of the following correctly describes the arrangement of grey and white matter in the spinal cord at the lumbar level?", "options": ["White matter predominates, arranged as an H-shape peripherally with grey matter centrally", "Grey matter is arranged peripherally surrounding white matter in the centre", "Grey matter forms a central H-shape surrounded by white matter; grey matter is proportionally greater at lumbar than thoracic levels", "Equal proportions of grey and white matter at all spinal levels"], "answer": "C", "explanation": "Grey matter forms the central H-shaped butterfly pattern. White matter surrounds it peripherally. At the lumbar enlargement, grey matter is proportionally much greater relative to white matter than at thoracic levels."}, {"n": 14, "orig_n": 14, "topic": "Anatomy", "stem": "The sonographic appearance of the articular processes of the lumbar vertebrae on parasagittal ultrasound is best described as:", "options": ["Camel hump sign", "Sawtooth appearance", "Horse head appearance", "Trident sign"], "answer": "B", "explanation": "The articular (facet) processes produce a characteristic sawtooth appearance on parasagittal scanning. The laminae produce the camel hump sign on the paramedian longitudinal view."}, {"n": 15, "orig_n": 29, "topic": "Anatomy", "stem": "Which of the following muscles is part of the rotator cuff?", "options": ["Teres major", "Teres minor", "Deltoid", "Long head of biceps brachii"], "answer": "B", "explanation": "The four rotator cuff muscles are: Supraspinatus, Infraspinatus, Teres minor and Subscapularis — remembered by the mnemonic SITS. Teres major is NOT a rotator cuff muscle; it adducts and medially rotates the arm and is supplied by the lower subscapular nerve. The long head of biceps passes through the rotator cuff interval but is not a cuff muscle. Deltoid is supplied by the axillary nerve and abducts the shoulder. Recalled from April 2026 EDRA exam recall."}, {"n": 16, "orig_n": 31, "topic": "Procedures, surgery and RA techniques", "stem": "With regards to recent guidelines for managing LAST, which of the following is correct?", "options": ["Adrenaline 1 mg IV bolus is the recommended first-line vasopressor", "Adrenaline ≤1 mcg/kg is advised to avoid increasing afterload and worsening cardiac toxicity", "Propofol is an acceptable substitute for lipid emulsion if unavailable", "Vasopressin is the preferred vasopressor in LAST cardiac arrest"], "answer": "B", "explanation": "Current ESRA/AAGBI LAST guidelines recommend adrenaline ≤1 mcg/kg to avoid tachycardia and increased myocardial oxygen demand which worsen bupivacaine cardiotoxicity. Propofol is explicitly contraindicated as a lipid substitute."}, {"n": 17, "orig_n": 32, "topic": "Procedures, surgery and RA techniques", "stem": "A patient who is COVID-19 positive is having surgery under regional anaesthesia. Which is recommended based on ESRA guidelines?", "options": ["Use of minimal sedation to avoid airway manipulation", "Use of deep sedation to keep them comfortable", "Regional anaesthesia is contraindicated in COVID-19 positive patients", "Rapid sequence induction general anaesthesia is preferred"], "answer": "A", "explanation": "ESRA recommends regional anaesthesia with minimal sedation in COVID-19 positive patients to avoid airway manipulation and reduce aerosolisation risk."}, {"n": 18, "orig_n": 33, "topic": "Procedures, surgery and RA techniques", "stem": "Which of the following correctly describes the classic Labat technique for sciatic nerve block?", "options": ["A line drawn from the PSIS to the greater trochanter; the needle is inserted at the midpoint", "Three landmarks: the PSIS, the greater trochanter, and the sacral hiatus; the needle insertion point lies at the intersection of a perpendicular dropped 3–5 cm caudally from the PSIS–GT midpoint with a line from the sacral hiatus to the greater trochanter", "The needle is inserted midway between the ischial tuberosity and the greater trochanter with the patient supine", "Two lines: PSIS to ischial tuberosity and sacral hiatus to greater trochanter; the intersection gives the insertion point"], "answer": "B", "explanation": "The classic Labat technique uses three landmarks: PSIS, greater trochanter and sacral hiatus. A perpendicular is dropped 3–5 cm caudally from the midpoint of the PSIS–GT line; its intersection with the sacral hiatus–GT line gives the needle insertion point. The NYSORA modification uses only two lines (omitting the sacral hiatus line). Recalled from April 2026 EDRA exam Q25."}, {"n": 19, "orig_n": 34, "topic": "Procedures, surgery and RA techniques", "stem": "A patient with a neck of femur fracture had three failed lumbar puncture attempts in the lateral position with the fractured side up. Which approach would give a higher success rate?", "options": ["Paraspinous approach with hips and knees flattened", "Paraspinous approach with head-down position", "Paramedian approach from the dependent (fractured) side down", "Sitting position with a standard midline approach"], "answer": "C", "explanation": "Placing the fractured side dependent (down) opens interspinous spaces on that side and allows hyperbaric bupivacaine to settle to the operative side. The paramedian approach from the dependent side improves success when midline attempts have failed."}, {"n": 20, "orig_n": 35, "topic": "Procedures, surgery and RA techniques", "stem": "A patient with a peripheral nerve catheter following an above-knee amputation develops perioral tingling. What is the most appropriate immediate action?", "options": ["Stop the infusion immediately and institute the LAST management protocol", "Reduce the infusion rate by half and observe", "Reposition the catheter under ultrasound guidance", "Reassure the patient and monitor closely"], "answer": "A", "explanation": "Perioral tingling is an early CNS symptom of LAST. The infusion must be stopped immediately and the LAST management protocol instituted, including readiness to administer 20% intralipid."}, {"n": 21, "orig_n": 36, "topic": "Procedures, surgery and RA techniques", "stem": "A 2-year-old child weighing 12 kg is about to undergo a caudal block. Which of the following correctly describes the maximum safe dose of ropivacaine and the volume required for lumbar coverage?", "options": ["Maximum dose 3 mg/kg; 1.0 ml/kg of 0.2% ropivacaine for lumbar coverage", "Maximum dose 5 mg/kg; 1.5 ml/kg of 0.5% ropivacaine for lumbar coverage", "Maximum dose 3 mg/kg; 1.5 ml/kg of 0.5% ropivacaine for lumbar coverage", "Maximum dose 2 mg/kg; 0.5 ml/kg of 0.2% ropivacaine for lumbar coverage"], "answer": "A", "explanation": "The maximum safe dose of ropivacaine for caudal block in children is 3 mg/kg. Volume guidelines: 0.5 ml/kg for sacral coverage, 1.0 ml/kg for lumbar coverage, 1.25 ml/kg for thoracic coverage — all using 0.2% ropivacaine. Higher concentrations (0.5%) would exceed safe dose limits at these volumes. Knowing these dose/volume relationships is essential for safe paediatric regional anaesthesia."}, {"n": 22, "orig_n": 37, "topic": "Procedures, surgery and RA techniques", "stem": "For post-operative analgesia following total knee replacement, which regional technique combination provides the best analgesia while preserving quadriceps motor function?", "options": ["Femoral nerve block alone", "Femoral nerve block combined with sciatic nerve block", "Adductor canal block combined with iPACK block", "Lumbar plexus block"], "answer": "C", "explanation": "Adductor canal block (sensory analgesia for the anterior knee via saphenous nerve) combined with iPACK block (posterior capsule nerves) provides comprehensive knee analgesia while preserving quadriceps motor function for rehabilitation."}, {"n": 23, "orig_n": 38, "topic": "Procedures, surgery and RA techniques", "stem": "Regarding regional anaesthesia in obstetrics, which of the following is correct?", "options": ["Local anaesthetic drugs tend to be more protein bound in the foetus than in the mother", "2-chloroprocaine cannot accumulate in the foetus as it is rapidly metabolised by maternal plasma cholinesterase", "Accumulation of bupivacaine may occur in the foetus if foetal acidosis develops due to ion trapping", "Local anaesthetics cannot transfer back from foetus to mother once placental transfer has occurred"], "answer": "C", "explanation": "Foetal acidosis causes ion trapping of bupivacaine — the ionised form accumulates in the foetal compartment. A is false (less protein bound in foetus due to lower AAG). D is false — back-transfer does occur when foetal concentrations exceed maternal."}, {"n": 24, "orig_n": 39, "topic": "Procedures, surgery and RA techniques", "stem": "Regarding the supraclavicular brachial plexus block, which of the following is correct?", "options": ["It does not cause phrenic nerve blockade", "It is sometimes called the 'spinal of the upper limb' due to the compact arrangement of the brachial plexus at this level", "The 'corner pocket' technique targets the superior component of the brachial plexus", "It targets the cords of the brachial plexus"], "answer": "B", "explanation": "The supraclavicular block is often called the 'spinal of the upper limb' because the compact arrangement of the brachial plexus at this level allows reliable anaesthesia of the entire upper limb with a single injection. A is false — phrenic nerve blockade occurs in approximately 50–60% of patients. C is false — the corner pocket technique targets the INFERIOR component. D is false — it targets the trunks/divisions, not cords. Reconstructed from Paper 1 Q28."}, {"n": 25, "orig_n": 40, "topic": "Procedures, surgery and RA techniques", "stem": "A 120 kg patient is having a repeat carpal tunnel release following numbness over the thenar eminence after the first surgery. What is the best block option?", "options": ["Local infiltration at the skin incision site", "Ulnar and median nerve block in the forearm", "Axillary brachial plexus block", "Supraclavicular block"], "answer": "A", "explanation": "Local infiltration along the incision line is the most appropriate technique for a repeat carpal tunnel release. The pre-existing median nerve damage at the wrist means that a wrist block risks further injury to an already compromised nerve. More proximal blocks (axillary, supraclavicular) are unnecessarily complex for this simple superficial procedure. The patient's weight does not preclude local infiltration — a small volume of LA along the skin incision is sufficient. Simplicity and safety favour infiltration over nerve block when the target nerve is already damaged. Recalled from April 2026 EDRA exam Q33."}, {"n": 26, "orig_n": 45, "topic": "Procedures, surgery and RA techniques", "stem": "An 80-year-old presents with a neck of femur fracture on treatment-dose LMWH (1 mg/kg BD), last dose taken 12 hours ago. You are asked to perform a fascia iliaca block. What is your action?", "options": ["Decline to perform the block", "Wait a further 12 hours (24 hours total from last dose) before performing the block", "Perform the block immediately as the risk-benefit favours analgesia", "Switch to UFH and then perform the block"], "answer": "C", "explanation": "The fascia iliaca block is categorised as a compressible, low-risk site by ESRA. In an elderly patient with a painful hip fracture, the clinical benefit of immediate analgesia outweighs the small haematoma risk at a compressible site. ESRA guidance supports a more lenient approach for compressible sites compared to deep non-compressible blocks (e.g. neuraxial, lumbar plexus), even with therapeutic LMWH on board. Recalled from April 2026 EDRA exam Q45."}, {"n": 27, "orig_n": 51, "topic": "Procedures, surgery and RA techniques", "stem": "On performing a sciatic nerve block using a peripheral nerve stimulator, what is the target motor response?", "options": ["Foot eversion only", "Plantar flexion of the foot", "Knee flexion", "Foot dorsiflexion only"], "answer": "B", "explanation": "Plantar flexion of the foot (tibial nerve component) is the preferred motor response. In the April 2026 recalled exam, inversion was NOT listed as an option."}, {"n": 28, "orig_n": 53, "topic": "Procedures, surgery and RA techniques", "stem": "A patient has scapulothoracic arthrodesis with an incision along the superior and medial borders of the scapula. Which block combination provides the best post-operative analgesia?", "options": ["Superior trunk block with intercostal nerve block", "Suprascapular nerve block with erector spinae plane block at T3 and T5", "Suprascapular nerve block with paravertebral block at T3 and T5", "Interscalene block with serratus anterior plane block"], "answer": "C", "explanation": "The suprascapular nerve covers the superior scapular border. Paravertebral blocks at T3 and T5 cover the medial scapular border and thoracic wall at the levels of the incision. This combination avoids phrenic nerve palsy (unlike interscalene) while providing targeted coverage of both incision borders. Recalled from April 2026 EDRA exam Q37."}, {"n": 29, "orig_n": 56, "topic": "Procedures, surgery and RA techniques", "stem": "What is the arrangement of the brachial plexus from proximal to distal?", "options": ["Roots – Divisions – Trunks – Cords – Terminal branches", "Roots – Trunks – Cords – Divisions – Terminal branches", "Roots – Trunks – Divisions – Cords – Terminal branches", "Trunks – Roots – Divisions – Cords – Terminal branches"], "answer": "C", "explanation": "'Remember To Drink Cold Beer': Roots, Trunks, Divisions, Cords, Branches. This was directly recalled from the April 2026 exam."}, {"n": 30, "orig_n": 59, "topic": "Pharmacology and sedation", "stem": "Regarding LAST pathophysiology, which of the following correctly describes a key mechanism?", "options": ["Potassium channel blocking is the main pathophysiology", "Ion trapping in the setting of metabolic acidosis increases intracellular LA concentration and worsens toxicity", "Calcium influx is the primary trigger for cardiac arrest", "LA bind irreversibly to sodium channels causing permanent conduction block"], "answer": "B", "explanation": "In metabolic acidosis, the ionised form of LA accumulates intracellularly (ion trapping), worsening both cardiac and CNS toxicity. Potassium channel blockade is not the primary mechanism."}, {"n": 31, "orig_n": 60, "topic": "Pharmacology and sedation", "stem": "Which local anaesthetic produces orthotoluidine as a metabolite, responsible for methaemoglobinaemia?", "options": ["Lidocaine", "Bupivacaine", "Mepivacaine", "Prilocaine"], "answer": "D", "explanation": "Prilocaine is metabolised to orthotoluidine, which oxidises haemoglobin to methaemoglobin. This is why prilocaine is avoided in obstetric epidurals and limited in total dose."}, {"n": 32, "orig_n": 61, "topic": "Pharmacology and sedation", "stem": "Which medication works as a regional anaesthesia adjuvant by acting on the presynaptic alpha-2 receptor?", "options": ["Ketamine", "Dexamethasone", "Clonidine", "Neostigmine"], "answer": "C", "explanation": "Clonidine is an alpha-2 adrenoceptor agonist. Perineurally it prolongs block duration by acting on presynaptic alpha-2 receptors, reducing noradrenaline release and causing hyperpolarisation of nerve fibres."}, {"n": 33, "orig_n": 62, "topic": "Pharmacology and sedation", "stem": "Regarding 20% intralipid in the treatment of LAST, which of the following is correct?", "options": ["It works by directly antagonising LA at the sodium channel", "It counteracts LA inhibition of myocardial fatty acid oxidation and acts as a lipid sink sequestering LA", "It should only be given after three failed DC cardioversion attempts", "It is contraindicated if the patient has received propofol"], "answer": "B", "explanation": "20% intralipid works via two mechanisms: lipid sink (sequestering lipid-soluble LA) and restoration of myocardial fatty acid oxidation inhibited by bupivacaine, restoring cardiac energy production."}, {"n": 34, "orig_n": 63, "topic": "Pharmacology and sedation", "stem": "Regarding flumazenil, which of the following is correct?", "options": ["It has a long duration of action exceeding 4 hours", "It has a short duration of action and re-sedation may occur after apparent recovery", "It is a full agonist at the benzodiazepine receptor", "It cannot be given orally as it undergoes no first-pass metabolism"], "answer": "B", "explanation": "Flumazenil has a short duration of action (approximately 15–140 minutes) — shorter than most benzodiazepines — meaning re-sedation may occur after apparent recovery. It is a competitive antagonist (not agonist) at the benzodiazepine receptor. It is readily absorbed orally but undergoes extensive first-pass metabolism, limiting oral bioavailability. Reconstructed from Paper 2 Q35."}, {"n": 35, "orig_n": 64, "topic": "Pharmacology and sedation", "stem": "Which of the following features of local anaesthetics is associated with a rapid onset of action?", "options": ["High lipid solubility", "pKa well above plasma pH", "pKa closer to plasma pH", "High protein binding"], "answer": "C", "explanation": "A pKa closer to physiological pH means more drug in the unionised form available to cross membranes. Addition of sodium bicarbonate shifts equilibrium further towards unionised form, also speeding onset. High lipid solubility increases potency and duration, not onset."}, {"n": 36, "orig_n": 71, "topic": "Physiology and physiopathology", "stem": "What is the main reason behind the absolute refractory period in a nerve action potential?", "options": ["Activation of voltage-gated potassium channels causing hyperpolarisation", "Inactivation of voltage-gated sodium channels which cannot be reopened regardless of stimulus intensity", "Depletion of intracellular sodium ions", "Closure of calcium channels in the axon membrane"], "answer": "B", "explanation": "During the absolute refractory period, voltage-gated sodium channels are in the inactivated state. They cannot be reopened by any stimulus until they recover to the resting state during repolarisation."}, {"n": 37, "orig_n": 72, "topic": "Physiology and physiopathology", "stem": "How is the resting membrane potential primarily determined physiologically?", "options": ["The Nernst equation for sodium, as Na+ permeability predominates at rest", "The Nernst equation for potassium, as K+ permeability predominates at rest", "The Goldman equation for chloride only", "The Hodgkin-Huxley equation for all ions equally"], "answer": "B", "explanation": "The resting membrane potential is primarily determined by potassium permeability, which predominates at rest. The Nernst equation for K+ gives approximately −90 mV, close to the actual resting potential of −70 mV."}, {"n": 38, "orig_n": 73, "topic": "Physiology and physiopathology", "stem": "What does the I² statistic represent in a meta-analysis?", "options": ["The probability that the combined result is due to chance alone", "The percentage of variation across studies attributable to true heterogeneity rather than sampling error", "The number of studies with statistically significant results", "The pooled odds ratio"], "answer": "B", "explanation": "I² quantifies the proportion of total variance across studies due to true between-study heterogeneity. I² >75% indicates substantial heterogeneity suggesting pooling may be inappropriate."}, {"n": 39, "orig_n": 74, "topic": "Physiology and physiopathology", "stem": "A drug is being tested on a population of 50,000 people in a town after receiving regulatory approval. In which phase of drug development is this?", "options": ["Phase I", "Phase II", "Phase III", "Phase IV"], "answer": "D", "explanation": "Phase IV is post-marketing surveillance — monitoring a drug that has already received regulatory approval in large real-world populations for long-term safety and rare adverse effects."}, {"n": 40, "orig_n": 75, "topic": "Physiology and physiopathology", "stem": "Regarding peripheral nerve blocks in paediatric patients, which of the following is correct according to ESRA guidelines?", "options": ["Peripheral nerve blocks should only be performed in awake cooperative children", "Peripheral nerve blocks under general anaesthesia or sedation are acceptable in appropriately selected children", "Clonidine is contraindicated as a perineural adjuvant in all paediatric patients", "Peripheral nerve blocks carry a substantially higher risk of acute compartment syndrome in children than in adults"], "answer": "B", "explanation": "The ESRA paediatric regional anaesthesia advisory states that peripheral nerve blocks under GA or sedation are acceptable and commonly practised in paediatric patients where awake co-operation is not possible."}, {"n": 41, "orig_n": 76, "topic": "Physiology and physiopathology", "stem": "Which complication of neuraxial anaesthesia has the same incidence in obese and non-obese patients?", "options": ["Post-dural puncture headache (PDPH) following accidental dural puncture", "Accidental dural puncture", "Failed epidural", "Epidural haematoma"], "answer": "A", "explanation": "The rate of PDPH following accidental dural puncture is similar in obese and non-obese patients. However the rate of accidental dural puncture itself is higher in obese patients due to technical difficulty."}, {"n": 42, "orig_n": 83, "topic": "Complications and side effects", "stem": "What is the most common mechanism of nerve injury following peripheral nerve block?", "options": ["Ischaemia due to increased intraneural injection pressure", "Direct shear from the needle tip", "Chemical neurotoxicity from the local anaesthetic", "Thermal damage from the needle"], "answer": "A", "explanation": "Intraneural injection causing elevated intraneural pressure compresses the vasa nervorum, causing ischaemic nerve injury. This is the most common and clinically important mechanism."}, {"n": 43, "orig_n": 84, "topic": "Complications and side effects", "stem": "Following a peripheral nerve block, a patient develops features of local anaesthetic toxicity. Which correctly describes the sequence of CNS symptoms in order of onset as plasma concentration rises?", "options": ["Circumoral tingling → visual disturbance → tinnitus → unconsciousness → seizures", "Circumoral tingling and tinnitus → visual disturbance → muscular twitching → seizures → CNS depression and coma", "Seizures → tinnitus → circumoral tingling → unconsciousness", "CNS depression → circumoral tingling → visual disturbance → seizures"], "answer": "B", "explanation": "The classic CNS toxicity sequence: circumoral tingling, metallic taste, tinnitus, visual disturbance → muscular twitching → tonic-clonic seizures → CNS depression, unconsciousness and respiratory arrest."}, {"n": 44, "orig_n": 85, "topic": "Complications and side effects", "stem": "Which classification system describes peripheral nerve injury in three grades: neuropraxia, axonotmesis and neurotmesis?", "options": ["Seddon classification", "Sunderland classification", "P-POSSUM score", "MELD score"], "answer": "A", "explanation": "The Seddon classification describes three degrees of peripheral nerve injury: neuropraxia (conduction block only, best prognosis), axonotmesis (axonal disruption with intact sheath), and neurotmesis (complete nerve division, worst prognosis). The Sunderland classification subdivides these into five degrees but was notably NOT listed as an option in the April 2026 recalled exam — P-POSSUM (surgical risk score), MELD (liver disease severity) and Seddon were the options given. Recalled from April 2026 EDRA exam Q30."}, {"n": 45, "orig_n": 86, "topic": "Complications and side effects", "stem": "What absolute compartment pressure is commonly used as a diagnostic threshold for acute compartment syndrome, independent of the patient's blood pressure?", "options": ["20 mmHg", "30 mmHg", "40 mmHg", "50 mmHg"], "answer": "C", "explanation": "An absolute compartment pressure of 40 mmHg is the threshold commonly cited in UK guidelines for the diagnosis of acute compartment syndrome, independent of the patient's blood pressure. The delta pressure (diastolic BP minus compartment pressure ≤30 mmHg) is also used clinically alongside the absolute threshold. Early recognition is critical — regional anaesthesia does not mask compartment syndrome if appropriate monitoring is maintained and breakthrough pain is taken seriously."}, {"n": 46, "orig_n": 87, "topic": "Complications and side effects", "stem": "Which of the following patients undergoing regional anaesthesia is at HIGHEST risk of LAST?", "options": ["30 ml of 0.25% bupivacaine for TAP block in a healthy 75 kg adult", "20 ml of 1% lidocaine for axillary block in a healthy 70 kg adult", "30 ml of 0.5% bupivacaine for interscalene block in a cachectic 50 kg patient with liver disease", "10 ml of 0.5% ropivacaine for femoral nerve block in a healthy 80 kg adult"], "answer": "C", "explanation": "Option C combines multiple LAST risk factors: high dose (150 mg bupivacaine), low body weight, highly vascular injection site (interscalene in the neck), and impaired hepatic clearance (liver disease)."}, {"n": 47, "orig_n": 88, "topic": "Complications and side effects", "stem": "A high/total spinal block can be identified by which clinical sign?", "options": ["Peripheral oxygen desaturation alone", "Low BIS reading alone", "Progressive hypotension with bradycardia, difficulty breathing and falling level of consciousness", "Hypoglycaemia"], "answer": "C", "explanation": "Total spinal presents with progressive hypotension (sympathectomy), bradycardia (cardiac accelerator fibres blocked), difficulty breathing or apnoea (phrenic nerve paralysis at C3–C5), and loss of consciousness."}, {"n": 48, "orig_n": 95, "topic": "Specific patient groups", "stem": "A patient is scheduled for thymectomy. Which of the following is correct?", "options": ["Anticholinesterase medications should be stopped 5 days before surgery", "The procedure can be performed under cervical epidural anaesthesia", "Neuromuscular blocking agents should be avoided or given at substantially reduced doses", "Post-operative mechanical ventilation is rarely required in myasthenia gravis"], "answer": "C", "explanation": "Myasthenia gravis patients are exquisitely sensitive to non-depolarising NMBDs — doses should be dramatically reduced if used. Thymectomy can be performed under thoracic (not cervical) epidural. Anticholinesterases are typically continued until day of surgery."}, {"n": 49, "orig_n": 96, "topic": "Specific patient groups", "stem": "Why are neonates at higher risk of LAST compared with adults?", "options": ["Neonates have higher levels of alpha-1-acid glycoprotein binding more LA", "Neonates metabolise amide LA more rapidly", "Low levels of alpha-1-acid glycoprotein in neonates result in a higher free drug fraction", "Neonates have a fully mature blood-brain barrier protecting against CNS toxicity"], "answer": "C", "explanation": "AAG is significantly lower in neonates than adults, resulting in a higher fraction of unbound (free) local anaesthetic. This free fraction is responsible for systemic toxicity. AAG levels gradually increase during infancy."}, {"n": 50, "orig_n": 97, "topic": "Specific patient groups", "stem": "Regarding spinal anaesthesia in a pregnant patient with spinal stenosis causing paraesthesia on walking, what is the most appropriate advice?", "options": ["Spinal anaesthesia is absolutely contraindicated; proceed with general anaesthesia", "Spinal anaesthesia carries a relative risk; avoid the stenotic level, document baseline neurology, and monitor for new deficits post-operatively", "Epidural is mandated and spinal should never be used", "The risk of spinal anaesthesia is identical to that in a normal spine"], "answer": "B", "explanation": "Spinal stenosis is a relative, not absolute, contraindication. Careful counselling, avoidance of the stenotic level, thorough baseline neurological documentation and close post-operative monitoring are the key principles."}, {"n": 51, "orig_n": 98, "topic": "Specific patient groups", "stem": "Batson's plexus is clinically relevant to regional anaesthesia in which of the following ways?", "options": ["It is an arterial network supplying the anterior spinal cord", "It is a valveless epidural venous plexus that becomes engorged in pregnancy and obesity, increasing the risk of intravascular epidural catheter placement", "It is a lymphatic plexus surrounding the dural sac", "It is found exclusively in the cervical epidural space"], "answer": "B", "explanation": "Batson's plexus (internal vertebral venous plexus) is a valveless epidural venous network communicating freely with pelvic, abdominal and thoracic veins. In pregnancy and obesity, raised intraabdominal pressure and aortocaval compression cause engorgement of this plexus, markedly increasing the risk of intravascular epidural catheter placement even on first insertion. Recalled from April 2026 EDRA exam bullet."}, {"n": 52, "orig_n": 99, "topic": "Specific patient groups", "stem": "What is the recommended dose range of hyperbaric bupivacaine 0.5% for spinal anaesthesia in infants weighing less than 5 kg?", "options": ["0.06 mg/kg", "0.3–0.5 mg/kg", "1.0–1.5 mg/kg", "2.0 mg/kg"], "answer": "B", "explanation": "In infants under 5 kg, the recommended dose of hyperbaric bupivacaine 0.5% for spinal anaesthesia is approximately 0.3–0.5 mg/kg. Higher weight-based doses are needed compared with adults due to the larger CSF volume per unit weight in neonates and infants, which dilutes and spreads the drug more rapidly. Recalled from April 2026 EDRA exam bullet."}, {"n": 53, "orig_n": 100, "topic": "Specific patient groups", "stem": "Regarding spinal anaesthesia in infants undergoing inguinal hernia repair, which statement is correct?", "options": ["Spinal anaesthesia is contraindicated in infants under 6 months", "Duration of spinal block is longer in infants than adults", "Fluid preloading of 10 ml/kg is recommended to prevent hypotension", "Spinal anaesthesia has advantages in ex-premature infants at risk of post-operative apnoea from general anaesthesia"], "answer": "D", "explanation": "Spinal anaesthesia is preferred over GA in ex-premature infants for inguinal hernia repair because GA markedly increases the risk of post-operative apnoea. Duration is generally shorter than in adults due to higher CSF volume/weight ratio."}, {"n": 54, "orig_n": 107, "topic": "Perioperative and acute pain", "stem": "A question on acute perioperative pain management: which of the following best reflects current evidence-based multimodal practice?", "options": ["Limiting use of opioids, using regular paracetamol and NSAIDs as a foundation with regional techniques", "High-dose opioid infusion as the cornerstone of acute pain management", "NSAIDs alone are sufficient for most post-operative pain", "Paracetamol should only be given if opioids fail"], "answer": "A", "explanation": "Multimodal analgesia limits opioid use by combining regular paracetamol and NSAIDs with regional techniques and adjuvants. This reflects the PROSPECT and ESRA approach to perioperative pain."}, {"n": 55, "orig_n": 108, "topic": "Basic statistics", "stem": "Which of the following statements about the Chi-squared test is correct?", "options": ["It is used to compare the frequencies of occurrence of categorical data", "It requires calculation of the standard error of the mean", "It does not require knowledge of the number of degrees of freedom", "It does not involve the null hypothesis"], "answer": "A", "explanation": "The Chi-squared test compares observed versus expected frequencies of categorical data. It requires knowledge of degrees of freedom and DOES involve the null hypothesis. It should not be used when expected cell frequencies are small (<5). It does not require calculation of the standard error of the mean. Reconstructed from Paper 3 Q14."}, {"n": 56, "orig_n": 109, "topic": "Perioperative and acute pain", "stem": "For cardiac surgery via mid-sternotomy, the PROSPECT guidelines recommend which primary analgesic technique?", "options": ["Bilateral thoracic epidural as the gold standard", "Intrathecal morphine as sole analgesic", "Parasternal infiltration or intercostal nerve blocks as part of multimodal analgesia", "Bilateral paravertebral blocks as first-line recommendation"], "answer": "C", "explanation": "PROSPECT guidelines for sternotomy recommend parasternal infiltration or intercostal nerve blocks combined with multimodal systemic analgesia. Thoracic epidural is not routinely recommended due to anticoagulation requirements of cardiac surgery."}, {"n": 57, "orig_n": 110, "topic": "Perioperative and acute pain", "stem": "Regarding gabapentinoids given perioperatively, which of the following is correct?", "options": ["They act as opioid receptor agonists synergistically with morphine", "They have no proven role in reducing acute post-operative pain", "They act on voltage-gated calcium channels (α2δ subunit) and reduce central sensitisation", "They are contraindicated in all paediatric patients"], "answer": "C", "explanation": "Gabapentinoids bind to the α2δ subunit of voltage-gated calcium channels, reducing excitatory neurotransmitter release and central sensitisation, thereby reducing acute post-operative pain and opioid consumption."}, {"n": 58, "orig_n": 113, "topic": "Physics and equipment", "stem": "Regarding SI units, which of the following pairings is correct?", "options": ["Current – Watt", "Resistance – Ampere", "Potential difference – Volt", "Temperature – Joule"], "answer": "C", "explanation": "Potential difference is measured in Volts (V). Current is measured in Amperes (A), not Watts. Resistance is measured in Ohms (Ω), not Amperes. Temperature in SI units is measured in Kelvin (K), not Joule. Reconstructed from Paper 3 Q30."}, {"n": 59, "orig_n": 114, "topic": "Physics and equipment", "stem": "When an ultrasound wave passes from one tissue medium to another with different acoustic impedance, what primarily determines how much of the beam is reflected?", "options": ["The frequency of the ultrasound beam alone", "The magnitude of the difference in acoustic impedance between the two media", "The depth of the interface from the transducer", "The gain setting on the machine"], "answer": "B", "explanation": "The proportion of the ultrasound beam reflected at a tissue interface is determined by the impedance mismatch (Z = density × velocity of sound). Greater difference = more reflection. Air-tissue interfaces cause near-total reflection — hence the need for coupling gel."}, {"n": 60, "orig_n": 118, "topic": "Basic statistics", "stem": "Regarding a histogram, which of the following is correct?", "options": ["The X-axis is dimensionless", "The rectangles may be of different widths", "The frequency is always proportional to the height of the rectangle regardless of width", "Class intervals of zero frequency must be included"], "answer": "B", "explanation": "In a histogram, rectangles may be of different widths. When they are, frequency is proportional to AREA not height. The X-axis has units representing the measured variable. Zero-frequency class intervals need not be included. Reconstructed from Paper 3 Q16."}];
 const TOTAL = 60;
@@ -334,12 +366,14 @@ let flagged = new Array(TOTAL).fill(false);
 let timeLeft = DURATION;
 let timerInterval = null;
 let examSubmitted = false;
+const isMobile = () => window.innerWidth < 768;
 
 function beginExam() {
   document.getElementById('start-screen').style.display = 'none';
   document.getElementById('topbar').style.display = 'flex';
-  document.getElementById('sidebar').style.display = 'block';
   document.getElementById('exam-layout').style.display = 'flex';
+  if (!isMobile()) document.getElementById('sidebar').style.display = 'block';
+  document.getElementById('mobile-nav').style.display = isMobile() ? 'flex' : 'none';
   buildGrid();
   renderQ();
   startTimer();
@@ -353,116 +387,109 @@ function startTimer() {
   }, 1000);
 }
 
-function updateTimerDisplay() {
-  var h = Math.floor(timeLeft/3600);
-  var m = Math.floor((timeLeft%3600)/60);
-  var s = timeLeft%60;
-  var str = pad(h)+':'+pad(m)+':'+pad(s);
-  var el = document.getElementById('timer');
-  el.textContent = str;
-  el.className = 'timer'+(timeLeft<=300?' critical':timeLeft<=600?' warning':'');
-  document.getElementById('modal-time').textContent = str;
-}
-
 function pad(n) { return String(n).padStart(2,'0'); }
 
+function updateTimerDisplay() {
+  var h=Math.floor(timeLeft/3600),m=Math.floor((timeLeft%3600)/60),s=timeLeft%60;
+  var str=pad(h)+':'+pad(m)+':'+pad(s);
+  var el=document.getElementById('timer');
+  el.textContent=str;
+  el.className='timer'+(timeLeft<=300?' critical':timeLeft<=600?' warning':'');
+  document.getElementById('modal-time').textContent=str;
+}
+
 function buildGrid() {
-  var grid = document.getElementById('q-grid');
-  grid.innerHTML = '';
-  for (var i=0; i<TOTAL; i++) {
-    var btn = document.createElement('button');
-    btn.className = 'q-btn';
-    btn.textContent = i+1;
-    btn.id = 'qb-'+i;
-    (function(idx) { btn.onclick = function() { current=idx; renderQ(); }; })(i);
+  var grid=document.getElementById('q-grid');
+  grid.innerHTML='';
+  for (var i=0;i<TOTAL;i++) {
+    var btn=document.createElement('button');
+    btn.className='q-btn'; btn.textContent=i+1; btn.id='qb-'+i;
+    (function(idx){ btn.onclick=function(){ current=idx; renderQ(); window.scrollTo(0,0); }; })(i);
     grid.appendChild(btn);
   }
 }
 
 function updateGrid() {
-  for (var i=0; i<TOTAL; i++) {
-    var btn = document.getElementById('qb-'+i);
-    var cls = 'q-btn';
-    if (i === current) cls += ' current';
-    if (userAnswers[i] !== null) cls += ' answered';
-    if (flagged[i]) cls += ' flagged';
-    btn.className = cls;
+  for (var i=0;i<TOTAL;i++) {
+    var btn=document.getElementById('qb-'+i);
+    if (!btn) continue;
+    var cls='q-btn';
+    if (i===current) cls+=' current';
+    if (userAnswers[i]!==null) cls+=' answered';
+    if (flagged[i]) cls+=' flagged';
+    btn.className=cls;
   }
-  var ans = userAnswers.filter(function(a){return a!==null;}).length;
-  var fl = flagged.filter(Boolean).length;
-  document.getElementById('stat-answered').textContent = ans;
-  document.getElementById('stat-flagged').textContent = fl;
-  document.getElementById('stat-remaining').textContent = TOTAL-ans;
-  var pct = Math.round(ans/TOTAL*100);
-  document.getElementById('prog-fill').style.width = pct+'%';
-  document.getElementById('prog-label').textContent = ans+' of '+TOTAL+' answered';
-  document.getElementById('prog-pct').textContent = pct+'%';
+  var ans=userAnswers.filter(function(a){return a!==null;}).length;
+  var fl=flagged.filter(Boolean).length;
+  document.getElementById('stat-answered').textContent=ans;
+  document.getElementById('stat-flagged').textContent=fl;
+  document.getElementById('stat-remaining').textContent=TOTAL-ans;
+  var pct=Math.round(ans/TOTAL*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=ans+' of '+TOTAL+' answered';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  // Mobile bar
+  document.getElementById('mob-qnum').textContent='Q'+(current+1)+'/60';
+  document.getElementById('mob-fill').style.width=pct+'%';
+  document.getElementById('mob-answered').textContent=ans+' answered';
 }
 
 function renderQ() {
-  var q = QUESTIONS[current];
-  document.getElementById('q-number').textContent = 'Q'+q.n;
-  document.getElementById('q-topic').textContent = q.topic;
-  document.getElementById('q-stem').textContent = q.stem;
-  var imgWrap = document.getElementById('q-image');
-  if (q.n === 4) {
-    document.getElementById('q-img').src = IMG_Q4;
-    imgWrap.style.display = 'block';
-  } else {
-    imgWrap.style.display = 'none';
-  }
-  var container = document.getElementById('options-container');
-  container.innerHTML = '';
-  var labels = ['A','B','C','D'];
-  for (var i=0; i<q.options.length; i++) {
-    var lbl = labels[i];
-    var btn = document.createElement('button');
-    btn.className = 'option' + (userAnswers[current]===lbl ? ' selected' : '');
-    var badge = document.createElement('span');
-    badge.className = 'option-badge';
-    badge.textContent = lbl;
-    var txt = document.createElement('span');
-    txt.className = 'option-text';
-    txt.textContent = q.options[i];
-    btn.appendChild(badge);
-    btn.appendChild(txt);
-    (function(l) { btn.onclick = function() { selectAnswer(l); }; })(lbl);
+  var q=QUESTIONS[current];
+  document.getElementById('q-number').textContent='Q'+q.n;
+  document.getElementById('q-topic').textContent=q.topic;
+  document.getElementById('q-stem').textContent=q.stem;
+  var imgWrap=document.getElementById('q-image');
+  if (q.n===4) { document.getElementById('q-img').src=IMG_Q4; imgWrap.style.display='block'; }
+  else imgWrap.style.display='none';
+  var container=document.getElementById('options-container');
+  container.innerHTML='';
+  var labels=['A','B','C','D'];
+  for (var i=0;i<q.options.length;i++) {
+    var lbl=labels[i];
+    var btn=document.createElement('button');
+    btn.className='option'+(userAnswers[current]===lbl?' selected':'');
+    var badge=document.createElement('span');
+    badge.className='option-badge'; badge.textContent=lbl;
+    var txt=document.createElement('span');
+    txt.className='option-text'; txt.textContent=q.options[i];
+    btn.appendChild(badge); btn.appendChild(txt);
+    (function(l){ btn.onclick=function(){ selectAnswer(l); }; })(lbl);
     container.appendChild(btn);
   }
-  var bf = document.getElementById('btn-flag');
-  bf.className = 'btn btn-flag' + (flagged[current] ? ' active' : '');
-  bf.textContent = flagged[current] ? '⚑ Flagged' : '⚐ Flag for review';
-  var btnPrev = document.getElementById('btn-prev');
-  btnPrev.disabled = current === 0;
-  document.getElementById('btn-next').textContent = current===TOTAL-1 ? 'End Exam →' : 'Next →';
+  var bf=document.getElementById('btn-flag');
+  bf.className='btn btn-flag'+(flagged[current]?' active':'');
+  bf.textContent=flagged[current]?'⚑ Flagged':'⚐ Flag';
+  document.getElementById('btn-prev').disabled=current===0;
+  document.getElementById('btn-next').textContent=current===TOTAL-1?'End &#8594;':'Next &#8594;';
   updateGrid();
   window.scrollTo(0,0);
 }
 
 function selectAnswer(lbl) {
   if (examSubmitted) return;
-  userAnswers[current] = lbl;
+  userAnswers[current]=lbl;
   renderQ();
 }
 
 function toggleFlag() {
-  flagged[current] = !flagged[current];
+  flagged[current]=!flagged[current];
   renderQ();
 }
 
-function prevQ() { if (current > 0) { current--; renderQ(); } }
+function prevQ() { if (current>0) { current--; renderQ(); } }
 
 function nextQ() {
-  if (current === TOTAL-1) openSubmitModal();
+  if (current===TOTAL-1) openSubmitModal();
   else { current++; renderQ(); }
 }
 
 function openSubmitModal() {
-  var ans = userAnswers.filter(function(a){return a!==null;}).length;
-  var fl = flagged.filter(Boolean).length;
-  document.getElementById('modal-answered').textContent = ans+' / '+TOTAL;
-  document.getElementById('modal-unanswered').textContent = TOTAL-ans;
-  document.getElementById('modal-flagged').textContent = fl;
+  var ans=userAnswers.filter(function(a){return a!==null;}).length;
+  var fl=flagged.filter(Boolean).length;
+  document.getElementById('modal-answered').textContent=ans+' / '+TOTAL;
+  document.getElementById('modal-unanswered').textContent=TOTAL-ans;
+  document.getElementById('modal-flagged').textContent=fl;
   document.getElementById('submit-modal').classList.add('open');
 }
 
@@ -472,105 +499,112 @@ function closeSubmitModal() {
 
 function submitExam() {
   clearInterval(timerInterval);
-  examSubmitted = true;
+  examSubmitted=true;
   closeSubmitModal();
-  document.getElementById('topbar').style.display = 'none';
-  document.getElementById('sidebar').style.display = 'none';
-  document.getElementById('exam-layout').style.display = 'none';
+  document.getElementById('topbar').style.display='none';
+  document.getElementById('sidebar').style.display='none';
+  document.getElementById('exam-layout').style.display='none';
+  document.getElementById('mobile-nav').style.display='none';
   showResults();
 }
 
 function showResults() {
-  document.getElementById('results-screen').style.display = 'block';
-  var correct = 0;
-  for (var i=0; i<TOTAL; i++) {
-    if (userAnswers[i] === QUESTIONS[i].answer) correct++;
-  }
-  var pct = Math.round(correct/TOTAL*100);
-  var timeTaken = DURATION - timeLeft;
-  var th = Math.floor(timeTaken/3600);
-  var tm = Math.floor((timeTaken%3600)/60);
-  var ts = timeTaken%60;
-  document.getElementById('res-score').textContent = correct;
-  document.getElementById('res-pct').textContent = pct+'%';
-  var ring = document.getElementById('ring-circle');
-  var circ = 2*Math.PI*46;
-  ring.style.strokeDasharray = circ;
-  setTimeout(function() {
-    ring.style.strokeDashoffset = circ - (circ*correct/TOTAL);
-    ring.style.stroke = pct>=70?'#2a7a4f':pct>=50?'#e8490f':'#c0392b';
-  }, 100);
-  var title, sub;
-  if (correct>=84) { title='Excellent performance'; sub=correct+' / '+TOTAL+' correct ('+pct+'%). Outstanding — you are well prepared.'; }
-  else if (correct>=72) { title='Good performance'; sub=correct+' / '+TOTAL+' correct ('+pct+'%). Solid result — review the sections below.'; }
-  else if (correct>=60) { title='Satisfactory'; sub=correct+' / '+TOTAL+' correct ('+pct+'%). Use the breakdown below to guide your revision.'; }
+  document.getElementById('results-screen').style.display='block';
+  var correct=0;
+  for (var i=0;i<TOTAL;i++) { if (userAnswers[i]===QUESTIONS[i].answer) correct++; }
+  var pct=Math.round(correct/TOTAL*100);
+  var timeTaken=DURATION-timeLeft;
+  var th=Math.floor(timeTaken/3600),tm=Math.floor((timeTaken%3600)/60),ts=timeTaken%60;
+  document.getElementById('res-score').textContent=correct;
+  document.getElementById('res-pct').textContent=pct+'%';
+  var ring=document.getElementById('ring-circle');
+  var circ=2*Math.PI*42;
+  ring.style.strokeDasharray=circ;
+  setTimeout(function(){
+    ring.style.strokeDashoffset=circ-(circ*correct/TOTAL);
+    ring.style.stroke=pct>=70?'#2a7a4f':pct>=50?'#e8490f':'#c0392b';
+  },100);
+  var title,sub;
+  if (correct>=84){ title='Excellent performance'; sub=correct+' / '+TOTAL+' correct ('+pct+'%). Outstanding — you are well prepared.'; }
+  else if (correct>=72){ title='Good performance'; sub=correct+' / '+TOTAL+' correct ('+pct+'%). Solid result — review the sections below.'; }
+  else if (correct>=60){ title='Satisfactory'; sub=correct+' / '+TOTAL+' correct ('+pct+'%). Use the breakdown below to guide your revision.'; }
   else { title='More revision needed'; sub=correct+' / '+TOTAL+' correct ('+pct+'%). Focus on all sections before the exam.'; }
-  document.getElementById('res-title').textContent = title;
-  document.getElementById('res-sub').textContent = sub;
-  var topicOrder = ['Anatomy','Procedures, surgery and RA techniques','Pharmacology and sedation','Physiology and physiopathology','Complications and side effects','Specific patient groups','Perioperative and acute pain','Physics and equipment','Basic statistics'];
-  var topicMap = {};
-  for (var i=0; i<TOTAL; i++) {
-    var t = QUESTIONS[i].topic;
-    if (!topicMap[t]) topicMap[t] = {c:0,t:0};
+  document.getElementById('res-title').textContent=title;
+  document.getElementById('res-sub').textContent=sub;
+  var topicOrder=['Anatomy','Procedures, surgery and RA techniques','Pharmacology and sedation','Physiology and physiopathology','Complications and side effects','Specific patient groups','Perioperative and acute pain','Physics and equipment','Basic statistics'];
+  var topicMap={};
+  for (var i=0;i<TOTAL;i++) {
+    var t=QUESTIONS[i].topic;
+    if (!topicMap[t]) topicMap[t]={c:0,t:0};
     topicMap[t].t++;
     if (userAnswers[i]===QUESTIONS[i].answer) topicMap[t].c++;
   }
-  var topicRows = document.getElementById('topic-rows');
-  topicRows.innerHTML = '';
-  for (var ti=0; ti<topicOrder.length; ti++) {
-    var topic = topicOrder[ti];
+  var topicRows=document.getElementById('topic-rows');
+  topicRows.innerHTML='';
+  for (var ti=0;ti<topicOrder.length;ti++) {
+    var topic=topicOrder[ti];
     if (!topicMap[topic]) continue;
-    var c = topicMap[topic].c, tot = topicMap[topic].t;
-    var p = Math.round(c/tot*100);
-    var row = document.createElement('div');
-    row.className = 'topic-row';
-    row.innerHTML = '<span class="topic-name">'+topic+'</span>'+
+    var c=topicMap[topic].c,tot=topicMap[topic].t;
+    var p=Math.round(c/tot*100);
+    var row=document.createElement('div');
+    row.className='topic-row';
+    row.innerHTML='<span class="topic-name">'+topic+'</span>'+
       '<div class="topic-track"><div class="topic-bar" style="width:'+p+'%;background:'+(p>=70?'#2a7a4f':p>=50?'#e8490f':'#c0392b')+'"></div></div>'+
       '<span class="topic-score">'+c+'/'+tot+'</span>';
     topicRows.appendChild(row);
   }
-  var ans = userAnswers.filter(function(a){return a!==null;}).length;
-  var fl = flagged.filter(Boolean).length;
-  document.getElementById('summary-stats').innerHTML =
+  var ans=userAnswers.filter(function(a){return a!==null;}).length;
+  var fl=flagged.filter(Boolean).length;
+  document.getElementById('summary-stats').innerHTML=
     '<div class="stat-row"><span class="stat-label">Correct</span><span class="stat-value" style="color:#2a7a4f">'+correct+'</span></div>'+
     '<div class="stat-row"><span class="stat-label">Incorrect</span><span class="stat-value" style="color:#c0392b">'+(ans-correct)+'</span></div>'+
     '<div class="stat-row"><span class="stat-label">Unanswered</span><span class="stat-value" style="color:#e8490f">'+(TOTAL-ans)+'</span></div>'+
     '<div class="stat-row"><span class="stat-label">Flagged</span><span class="stat-value">'+fl+'</span></div>'+
     '<div class="stat-row"><span class="stat-label">Time taken</span><span class="stat-value">'+pad(th)+':'+pad(tm)+':'+pad(ts)+'</span></div>';
-  var ri = document.getElementById('review-items');
-  ri.innerHTML = '';
-  var hasWrong = false;
-  for (var i=0; i<TOTAL; i++) {
-    if (userAnswers[i] === QUESTIONS[i].answer) continue;
-    hasWrong = true;
-    var q = QUESTIONS[i];
-    var ua = userAnswers[i];
-    var labels2 = ['A','B','C','D'];
-    var uaText = ua===null ? 'Not answered' : ua+'. '+q.options[labels2.indexOf(ua)];
-    var correctText = q.answer+'. '+q.options[labels2.indexOf(q.answer)];
-    var item = document.createElement('div');
-    item.className = 'review-item';
-    var hdr = document.createElement('div');
-    hdr.className = 'review-item-header';
-    hdr.onclick = (function(el) { return function() { el.parentElement.classList.toggle('open'); }; })(hdr);
-    hdr.innerHTML = '<div class="review-icon wrong">&#10007;</div>'+
+  var ri=document.getElementById('review-items');
+  ri.innerHTML='';
+  var hasWrong=false;
+  for (var i=0;i<TOTAL;i++) {
+    if (userAnswers[i]===QUESTIONS[i].answer) continue;
+    hasWrong=true;
+    var q=QUESTIONS[i];
+    var ua=userAnswers[i];
+    var labels2=['A','B','C','D'];
+    var uaText=ua===null?'Not answered':ua+'. '+q.options[labels2.indexOf(ua)];
+    var correctText=q.answer+'. '+q.options[labels2.indexOf(q.answer)];
+    var item=document.createElement('div');
+    item.className='review-item';
+    var hdr=document.createElement('div');
+    hdr.className='review-item-header';
+    hdr.onclick=(function(el){ return function(){ el.parentElement.classList.toggle('open'); }; })(hdr);
+    hdr.innerHTML='<div class="review-icon wrong">&#10007;</div>'+
       '<span class="review-qn">Q'+q.n+'</span>'+
-      '<span class="review-stem-short">'+(q.stem.length>85?q.stem.substring(0,85)+'&#8230;':q.stem)+'</span>'+
+      '<span class="review-stem-short">'+(q.stem.length>80?q.stem.substring(0,80)+'&#8230;':q.stem)+'</span>'+
       '<span class="review-chevron">&#9662;</span>';
-    var body = document.createElement('div');
-    body.className = 'review-body';
-    body.innerHTML = '<div class="review-your">Your answer: '+uaText+'</div>'+
+    var body=document.createElement('div');
+    body.className='review-body';
+    body.innerHTML='<div class="review-your">Your answer: '+uaText+'</div>'+
       '<div class="review-correct">Correct answer: '+correctText+'</div>'+
       '<div class="review-expl">'+q.explanation+'</div>';
-    item.appendChild(hdr);
-    item.appendChild(body);
+    item.appendChild(hdr); item.appendChild(body);
     ri.appendChild(item);
   }
-  if (!hasWrong) {
-    ri.innerHTML = '<p style="text-align:center;color:#2a7a4f;padding:20px;font-weight:600">Perfect score!</p>';
-  }
+  if (!hasWrong) ri.innerHTML='<p style="text-align:center;color:#2a7a4f;padding:20px;font-weight:600">Perfect score!</p>';
 }
 
+window.addEventListener('resize', function() {
+  if (document.getElementById('exam-layout').style.display !== 'none') {
+    var sidebar = document.getElementById('sidebar');
+    var mobileNav = document.getElementById('mobile-nav');
+    if (isMobile()) {
+      sidebar.style.display = 'none';
+      mobileNav.style.display = 'flex';
+    } else {
+      sidebar.style.display = 'block';
+      mobileNav.style.display = 'none';
+    }
+  }
+});
 </script>
 </body>
 </html>
