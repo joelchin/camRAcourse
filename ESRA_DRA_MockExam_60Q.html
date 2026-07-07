@@ -461,7 +461,7 @@ function renderQ() {
   bf.className='btn btn-flag'+(flagged[current]?' active':'');
   bf.textContent=flagged[current]?'⚑ Flagged':'⚐ Flag';
   document.getElementById('btn-prev').disabled=current===0;
-  document.getElementById('btn-next').textContent=current===TOTAL-1?'End &#8594;':'Next &#8594;';
+  document.getElementById('btn-next').innerHTML=current===TOTAL-1?'End &rarr;':'Next &rarr;';
   updateGrid();
   window.scrollTo(0,0);
 }
